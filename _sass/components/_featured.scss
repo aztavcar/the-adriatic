@@ -1,0 +1,122 @@
+// =============================================
+//   Featured Article (Hero) - Two Column Layout
+// =============================================
+
+.featured-article {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+a.featured-hero-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+// Left column - Text content
+.featured-text {
+  order: 1;
+
+  @media (min-width: 1024px) {
+    order: 0;
+  }
+}
+
+.featured-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.eyebrow-line {
+  width: 2.5rem;
+  height: 1px;
+  background-color: var(--adriatic-border);
+}
+
+.eyebrow-text {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--adriatic-accent);
+}
+
+.featured-headline {
+  font-family: var(--adriatic-font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 0.9;
+  color: var(--adriatic-text);
+  margin: 0 0 1rem;
+}
+
+.featured-deck {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--adriatic-text-muted);
+  margin: 0;
+  max-width: 480px;
+}
+
+// Right column - Image
+.featured-image-wrapper {
+  position: relative;
+  order: 0;
+
+  @media (min-width: 1024px) {
+    order: 1;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.12);
+  }
+
+  .placeholder {
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, #3a7ca5 0%, #6bb3d9 100%);
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Optional floating caption pill
+.featured-caption {
+  position: absolute;
+  bottom: -0.75rem;
+  right: 1rem;
+  background: var(--adriatic-accent);
+  color: #fff;
+  font-family: var(--adriatic-font-default);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

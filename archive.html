@@ -1,0 +1,95 @@
+---
+layout: default
+title: Archive
+pagination:
+  enabled: true
+  per_page: 25
+---
+
+<div class="archive-container">
+  <div class="archive-header">
+    <p class="archive-blurb">Everything we've written this year.</p>
+  </div>
+
+  <!-- Search Bar -->
+  <section class="archive-search">
+    <div class="search-container">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+      </svg>
+      <input type="text" id="archive-search" class="search-input" placeholder="Search articles...">
+    </div>
+  </section>
+
+  <ul class="archive-list">
+    {% assign posts_to_show = paginator.posts | default: site.posts %}
+
+    {% for post in posts_to_show %}
+      <li class="archive-item">
+        <a href="{{ post.url | relative_url }}">
+          <div class="archive-date">{{ post.date | date: "%-d %B %Y" }}</div>
+          <h2 class="archive-title">{{ post.title }}</h2>
+          {% if post.deck %}
+            <div class="archive-excerpt">{{ post.deck }}</div>
+          {% elsif post.lede %}
+            <div class="archive-excerpt">{{ post.lede }}</div>
+          {% elsif post.excerpt %}
+            <div class="archive-excerpt">{{ post.excerpt | strip_html }}</div>
+          {% endif %}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% if paginator %}
+  <div class="archive-pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-link pagination-prev">← Previous</a>
+    {% else %}
+      <span class="pagination-link pagination-prev disabled">← Previous</span>
+    {% endif %}
+
+    <div class="pagination-numbers">
+      {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+          <span class="pagination-number active">{{ page }}</span>
+        {% elsif page == 1 %}
+          <a href="{{ '/archive/' | relative_url }}" class="pagination-number">{{ page }}</a>
+        {% else %}
+          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="pagination-number">{{ page }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-link pagination-next">Next →</a>
+    {% else %}
+      <span class="pagination-link pagination-next disabled">Next →</span>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('archive-search');
+  const archiveItems = document.querySelectorAll('.archive-item');
+
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+
+    archiveItems.forEach(item => {
+      const title = item.querySelector('.archive-title')?.textContent.toLowerCase() || '';
+      const excerpt = item.querySelector('.archive-excerpt')?.textContent.toLowerCase() || '';
+
+      const searchText = `${title} ${excerpt}`;
+
+      if (query === '' || searchText.includes(query)) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  });
+});
+</script>

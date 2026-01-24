@@ -1,0 +1,131 @@
+// =============================================
+//   Secondary Articles - Horizontal Layout
+// =============================================
+
+.secondary-articles {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 1.5rem 0;
+}
+
+.horizontal-card {
+  display: grid;
+  grid-template-columns: 280px 1fr 120px;
+  gap: 2rem;
+  padding: 20px 0;
+  border-top: 1px solid var(--adriatic-border);
+  text-decoration: none;
+  color: inherit;
+  align-items: start;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: 1px solid var(--adriatic-border);
+  }
+
+  &:hover {
+    .horizontal-card-image {
+      box-shadow: var(--shadow-xl);
+    }
+  }
+}
+
+.horizontal-card-image {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0;
+  margin-left: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.3s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #3a7ca5 0%, #6bb3d9 100%);
+  }
+}
+
+.horizontal-card-date {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  color: var(--adriatic-text-muted);
+  padding-top: 0.25rem;
+}
+
+.horizontal-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.horizontal-card-title {
+  font-family: var(--adriatic-font-display);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--adriatic-text);
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.horizontal-card-author {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  color: var(--adriatic-text-muted);
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .horizontal-card {
+    grid-template-columns: 100px 1fr 280px;
+    gap: 1.5rem;
+  }
+
+  .horizontal-card-title {
+    font-size: 1.5rem;
+  }
+
+  .horizontal-card-author {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .secondary-articles {
+    padding: 0 1rem 1.5rem;
+  }
+
+  .horizontal-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.5rem 0;
+  }
+
+  .horizontal-card-date {
+    order: 1;
+    font-size: 0.8rem;
+  }
+
+  .horizontal-card-text {
+    order: 2;
+  }
+
+  .horizontal-card-image {
+    order: 3;
+  }
+
+  .horizontal-card-title {
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+
+  .horizontal-card-author {
+    font-size: 0.9rem;
+  }
+}

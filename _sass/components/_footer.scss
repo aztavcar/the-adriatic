@@ -1,0 +1,274 @@
+// =============================================
+//   Footer
+// =============================================
+
+/* Footer Container */
+.footer-section {
+  position: relative;
+  background-color: var(--adriatic-bg);
+  color: var(--adriatic-text);
+  padding: 80px 0 40px;
+  overflow: hidden;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Call-to-Action Section */
+.footer-cta {
+  text-align: center;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--adriatic-font-masthead);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.75;
+  color: var(--adriatic-accent);
+  margin-bottom: 1.5rem;
+}
+
+.footer-cta-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+
+    .footer-cta-tagline mark {
+      filter: brightness(0.92);
+    }
+  }
+}
+
+.footer-cta-heading {
+  display: block;
+  font-family: var(--adriatic-font-display);
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+  color: var(--adriatic-text);
+}
+
+.footer-cta-tagline {
+  display: block;
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--adriatic-text-muted);
+  max-width: 480px;
+
+  mark {
+    transition: filter 0.2s ease;
+  }
+}
+
+/* Footer Image */
+.footer-stamp {
+  display: block;
+  width: 200px;
+  margin: 2rem auto 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Navigation */
+.footer-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.footer-nav-list a {
+  font-family: var(--adriatic-font-sans);
+  color: var(--adriatic-border);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 300;
+  transition: color 0.3s ease;
+}
+
+.footer-nav-list a:hover {
+  color: var(--adriatic-text);
+}
+
+/* Subscribe Form - GIC Style */
+.footer-subscribe {
+  display: flex;
+  align-items: stretch;
+  width: 190px;
+  height: 38px;
+  margin: 0 auto;
+  border: 1px solid var(--adriatic-border);
+  border-radius: 4px;
+  background: var(--adriatic-bg-dark);
+  overflow: hidden;
+}
+
+.footer-subscribe-box {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.footer-subscribe-label {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 10px;
+  font-family: var(--adriatic-font-default);
+  font-size: 11px;
+  color: var(--adriatic-text-muted);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.footer-subscribe-input {
+  width: 100%;
+  height: 100%;
+  padding: 0 4px 0 10px;
+  border: none;
+  background: transparent;
+  font-family: var(--adriatic-font-default);
+  font-size: 11px;
+  color: var(--adriatic-text);
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  &::placeholder {
+    color: var(--adriatic-text-muted);
+  }
+
+  &:focus {
+    outline: none;
+    opacity: 1;
+  }
+}
+
+// Show input on hover (entire form), hide label
+.footer-subscribe:hover,
+.footer-subscribe:focus-within {
+  .footer-subscribe-label {
+    opacity: 0;
+  }
+
+  .footer-subscribe-input {
+    opacity: 1;
+  }
+}
+
+.footer-subscribe-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  padding: 0 6px 0 0;
+  background: transparent;
+  border: none;
+  color: var(--adriatic-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--adriatic-text);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Social Links */
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: -24px;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #171717;
+  transition: opacity 0.3s ease;
+}
+
+.footer-social-link:hover {
+  opacity: 0.6;
+}
+
+.footer-social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Made in Ljubljana */
+.footer-made {
+  font-family: var(--adriatic-font-sans);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--adriatic-border);
+  text-align: center;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    gap: 32px;
+  }
+
+  .footer-cta-heading {
+    font-size: 24px;
+  }
+
+  .footer-nav-list {
+    gap: 16px;
+  }
+
+  .footer-subscribe {
+    width: 100%;
+    max-width: 190px;
+  }
+}

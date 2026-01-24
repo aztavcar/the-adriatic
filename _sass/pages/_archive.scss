@@ -1,0 +1,165 @@
+// =============================================
+//   Archive Page Styles
+// =============================================
+
+.archive-container {
+  max-width: 630px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  font-family: var(--adriatic-font-sans);
+  color: var(--adriatic-text);
+}
+
+.archive-header {
+  margin-bottom: 2rem;
+}
+
+.archive-blurb {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  color: var(--adriatic-text-muted);
+  margin: 0;
+}
+
+// Archive Search
+.archive-search {
+  margin-bottom: 2rem;
+
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--adriatic-text-muted);
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 0.75rem 0.75rem 2rem;
+    font-family: var(--adriatic-font-sans);
+    font-size: 0.875rem;
+    color: var(--adriatic-text);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--adriatic-border);
+    outline: none;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+      color: var(--adriatic-text-muted);
+    }
+
+    &:focus {
+      border-bottom-color: var(--adriatic-text);
+    }
+  }
+}
+
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &:hover .archive-item a {
+    opacity: 0.4;
+  }
+
+  .archive-item:hover a {
+    opacity: 1;
+  }
+}
+
+.archive-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--adriatic-border);
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: opacity 0.2s ease;
+  }
+}
+
+.archive-date {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  color: var(--adriatic-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.archive-title {
+  font-family: var(--adriatic-font-sans);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--adriatic-text);
+  line-height: 1.3;
+  margin: 0.5rem 0;
+}
+
+.archive-excerpt {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--adriatic-text-muted);
+  margin-top: 0.5rem;
+}
+
+// Archive Pagination
+.archive-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--adriatic-border);
+}
+
+.pagination-link {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  color: var(--adriatic-text);
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:hover:not(.disabled) {
+    opacity: 0.7;
+  }
+
+  &.disabled {
+    color: var(--adriatic-text-muted);
+    cursor: default;
+  }
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pagination-number {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  color: var(--adriatic-text);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &.active {
+    font-weight: 600;
+    color: var(--adriatic-accent);
+  }
+}

@@ -1,0 +1,284 @@
+// =============================================
+//   Newsletter Page Styles
+// =============================================
+
+.newsletter-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  font-family: var(--adriatic-font-sans);
+  color: var(--adriatic-text);
+}
+
+.newsletter-content-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.newsletter-left-section {
+  max-width: 400px;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.newsletter-intro {
+  margin-bottom: 2rem;
+
+  p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    color: var(--adriatic-text);
+  }
+}
+
+.newsletter-form-wrapper {
+  margin: 0;
+}
+
+// Brevo Form Overrides
+.sib-form {
+  text-align: left;
+}
+
+.sib-form-container {
+  background: transparent;
+}
+
+.sib-form-message-panel {
+  display: none;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+
+  &.sib-form-message-panel--error {
+    background-color: #ffeded;
+    border: 1px solid #ff4949;
+    color: #661d1d;
+  }
+
+  &.sib-form-message-panel--success {
+    background-color: #e7faf0;
+    border: 1px solid #13ce66;
+    color: #085229;
+  }
+}
+
+.sib-form-message-panel__text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+
+  .sib-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+}
+
+.sib-form-block {
+  margin-bottom: 1.25rem;
+}
+
+.form__entry {
+  display: flex;
+  flex-direction: column;
+}
+
+.entry__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--adriatic-text);
+  margin-bottom: 0.5rem;
+}
+
+.entry__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--adriatic-font-sans);
+  font-size: 1rem;
+  color: var(--adriatic-text);
+  background: var(--adriatic-bg);
+  border: 1px solid var(--adriatic-border);
+  border-radius: 4px;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: var(--adriatic-text);
+  }
+
+  &::placeholder {
+    color: var(--adriatic-text-muted);
+  }
+}
+
+.entry__error {
+  font-size: 0.75rem;
+  color: #661d1d;
+  margin-top: 0.5rem;
+  display: none;
+
+  &:not(:empty) {
+    display: block;
+  }
+}
+
+.sib-captcha-block {
+  margin-top: 0.5rem;
+}
+
+.captcha-note,
+.checkbox-note {
+  font-size: 0.75rem;
+  color: var(--adriatic-text-muted);
+  margin: 0.5rem 0 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.checkbox-input {
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.checkbox-text {
+  font-size: 0.875rem;
+  color: var(--adriatic-text);
+  line-height: 1.4;
+}
+
+.subscribe-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--adriatic-text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .button-loader {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.brevo-declaration {
+  margin-top: 1.5rem;
+
+  p {
+    font-size: 0.75rem;
+    color: var(--adriatic-text-muted);
+    margin: 0;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+.input--hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+// iPhone Mockup
+.newsletter-phone-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.iphone-frame {
+  position: relative;
+  width: 220px;
+  height: 460px;
+  background: #1a1a1a;
+  border-radius: 44px;
+  padding: 12px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.iphone-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 18px 18px;
+  z-index: 10;
+}
+
+.iphone-screen {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 34px;
+  overflow: hidden;
+  position: relative;
+}
+
+.newsletter-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .newsletter-content-wrapper {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .newsletter-left-section {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .newsletter-phone-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .iphone-frame {
+    width: 200px;
+    height: 420px;
+  }
+}

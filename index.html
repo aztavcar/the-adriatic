@@ -1,0 +1,278 @@
+---
+layout: default
+title: Home
+---
+
+<!-- Page Header -->
+<header class="adriatic-header">
+  <h1 class="adriatic-title">{{ site.title }}</h1>
+  <div class="header-meta">
+    <span class="date">CORPORATE BRIEF, <a href="{{ '/mag' | relative_url }}" class="plain"><mark class="rose">ISSUE 2026</mark></a></span>
+    <span class="divider"></span>
+    <div class="categories">POLITICS, BUSINESS, LIVING</div>
+  </div>
+</header>
+
+<!-- Digital Clock -->
+{% include clock.html %}
+
+<!-- Featured Article -->
+{% assign featured = site.posts | where_exp: "post", "post.hidden != true" | first %}
+{% if featured %}
+  {% if featured.layout_type == "feature" %}
+  <!-- Feature Hero - Magazine-style layout for longform/profiles -->
+  <section class="feature-hero">
+    <a href="{{ featured.url | relative_url }}" class="feature-hero-container">
+      <div class="feature-text">
+        <div class="feature-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">{% if featured.kicker %}{{ featured.kicker }}{% elsif featured.category_display %}{{ featured.category_display }}{% else %}{{ featured.category | capitalize }}{% endif %}</span>
+        </div>
+        <h2 class="feature-headline">{{ featured.title }}</h2>
+        {% if featured.deck %}<p class="feature-deck">{{ featured.deck }}</p>{% elsif featured.lede %}<p class="feature-deck">{{ featured.lede }}</p>{% elsif featured.excerpt %}<p class="feature-deck">{{ featured.excerpt | strip_html }}</p>{% endif %}
+        {% if featured.author %}<p class="feature-byline">By {{ featured.author }}{% if featured.author_secondary %} and {{ featured.author_secondary }}{% endif %}</p>{% endif %}
+      </div>
+      <div class="feature-image-wrapper">
+        {% if featured.image %}
+        <img src="{{ featured.image | relative_url }}" alt="{{ featured.title }}" loading="eager">
+        {% endif %}
+        {% if featured.image_credit %}
+        <span class="feature-credit">{{ featured.image_credit }}</span>
+        {% endif %}
+      </div>
+    </a>
+  </section>
+  {% else %}
+  <!-- Standard Featured Article -->
+  <section class="featured-article">
+    <a href="{{ featured.url | relative_url }}" class="featured-hero-container">
+      <div class="featured-text">
+        <div class="featured-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">{% if featured.kicker %}{{ featured.kicker }}{% elsif featured.category_display %}{{ featured.category_display }}{% else %}{{ featured.category | capitalize }}{% endif %}</span>
+        </div>
+        <h2 class="featured-headline">{{ featured.title }}</h2>
+        {% if featured.deck %}<p class="featured-deck">{{ featured.deck }}</p>{% elsif featured.lede %}<p class="featured-deck">{{ featured.lede }}</p>{% elsif featured.excerpt %}<p class="featured-deck">{{ featured.excerpt | strip_html }}</p>{% endif %}
+      </div>
+      <div class="featured-image-wrapper">
+        {% if featured.image %}
+        <img src="{{ featured.image | relative_url }}" alt="{{ featured.title }}" loading="eager">
+        {% else %}
+        <div class="placeholder">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21,15 16,10 5,21"/>
+          </svg>
+        </div>
+        {% endif %}
+        {% if featured.image_caption %}
+        <span class="featured-caption">{{ featured.image_caption }}</span>
+        {% endif %}
+      </div>
+    </a>
+  </section>
+  {% endif %}
+{% endif %}
+
+<!-- Newsletter Signup (Hidden, for screen readers) -->
+<div class="visually-hidden">
+  <h2>Sign up for news and updates</h2>
+  <button>Get Updates</button>
+</div>
+
+<!-- Secondary Articles - Horizontal Layout -->
+<section class="secondary-articles">
+  {% assign visible_posts = site.posts | where_exp: "post", "post.hidden != true" %}
+  {% for post in visible_posts offset:1 limit:4 %}
+  <a href="{{ post.url | relative_url }}" class="horizontal-card">
+    <div class="horizontal-card-image">
+      {% if post.image %}
+      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+      {% else %}
+      <div class="placeholder"></div>
+      {% endif %}
+    </div>
+    <div class="horizontal-card-text">
+      <h3 class="horizontal-card-title">{{ post.title }}</h3>
+      <span class="horizontal-card-author">by {{ post.author }}</span>
+    </div>
+    <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
+  </a>
+  {% endfor %}
+</section>
+
+<!-- Article Grid -->
+<section class="adriatic-grid-section">
+  <div class="adriatic-grid">
+    {% for post in visible_posts offset:5 limit:3 %}
+    <a href="{{ post.url | relative_url }}" class="article-card" data-category="{{ post.category }}">
+      {% if post.author %}<span class="article-card-author">by {{ post.author }}</span>{% endif %}
+      <div class="article-card-image">
+        {% if post.image %}
+        <canvas class="pixelated-image"></canvas>
+        <img class="source-image" src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+        {% else %}
+        <div class="placeholder {% cycle 'blue', 'white', 'photo' %}">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="{% cycle 'white', '#333', 'white' %}" stroke-width="1.5" opacity="0.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21,15 16,10 5,21"/>
+          </svg>
+        </div>
+        {% endif %}
+      </div>
+      <h3 class="article-card-title">{{ post.title }}</h3>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- View More Button -->
+<section class="view-more-section">
+  <a href="{{ '/archive' | relative_url }}" class="view-more-btn">View more</a>
+</section>
+
+<style>
+/* Visually hidden but accessible */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Pixelation Effect Class
+  class PixelationEffect {
+    constructor(canvas, sourceImage) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d');
+      this.sourceImage = sourceImage;
+      this.pixelSize = 16; // Initial pixelation
+      this.targetPixelSize = 16;
+      this.animationId = null;
+      this.isAnimating = false;
+
+      this.init();
+    }
+
+    init() {
+      if (this.sourceImage.complete) {
+        this.setup();
+      } else {
+        this.sourceImage.onload = () => this.setup();
+      }
+    }
+
+    setup() {
+      // Set canvas internal resolution
+      this.canvas.width = 480;
+      this.canvas.height = 480;
+
+      // Draw initial pixelated state
+      this.draw();
+    }
+
+    draw() {
+      const ctx = this.ctx;
+      const img = this.sourceImage;
+      const w = this.canvas.width;
+      const h = this.canvas.height;
+
+      if (!img.complete || img.naturalWidth === 0) return;
+
+      // Clear canvas
+      ctx.clearRect(0, 0, w, h);
+
+      // Calculate aspect ratio cropping (cover behavior)
+      const imgRatio = img.naturalWidth / img.naturalHeight;
+      const canvasRatio = w / h;
+
+      let sx, sy, sw, sh;
+      if (imgRatio > canvasRatio) {
+        sh = img.naturalHeight;
+        sw = sh * canvasRatio;
+        sx = (img.naturalWidth - sw) / 2;
+        sy = 0;
+      } else {
+        sw = img.naturalWidth;
+        sh = sw / canvasRatio;
+        sx = 0;
+        sy = (img.naturalHeight - sh) / 2;
+      }
+
+      if (this.pixelSize <= 1) {
+        // Draw at full resolution
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+      } else {
+        // Pixelation effect
+        const scaledW = Math.ceil(w / this.pixelSize);
+        const scaledH = Math.ceil(h / this.pixelSize);
+
+        // Disable smoothing for pixelated look
+        ctx.imageSmoothingEnabled = false;
+
+        // Draw small then scale up
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, scaledW, scaledH);
+        ctx.drawImage(this.canvas, 0, 0, scaledW, scaledH, 0, 0, w, h);
+      }
+    }
+
+    animate() {
+      const ease = 0.15;
+      const diff = this.targetPixelSize - this.pixelSize;
+
+      if (Math.abs(diff) < 0.1) {
+        this.pixelSize = this.targetPixelSize;
+        this.draw();
+        this.isAnimating = false;
+        return;
+      }
+
+      this.pixelSize += diff * ease;
+      this.draw();
+
+      this.animationId = requestAnimationFrame(() => this.animate());
+    }
+
+    depixelate() {
+      this.targetPixelSize = 1;
+      if (!this.isAnimating) {
+        this.isAnimating = true;
+        this.animate();
+      }
+    }
+
+    pixelate() {
+      this.targetPixelSize = 16;
+      if (!this.isAnimating) {
+        this.isAnimating = true;
+        this.animate();
+      }
+    }
+  }
+
+  // Initialize pixelation effect for grid cards only
+  const gridCards = document.querySelectorAll('.adriatic-grid .article-card');
+
+  gridCards.forEach(card => {
+    const canvas = card.querySelector('.pixelated-image');
+    const sourceImage = card.querySelector('.source-image');
+
+    if (canvas && sourceImage) {
+      const effect = new PixelationEffect(canvas, sourceImage);
+
+      card.addEventListener('mouseenter', () => effect.depixelate());
+      card.addEventListener('mouseleave', () => effect.pixelate());
+    }
+  });
+});
+</script>

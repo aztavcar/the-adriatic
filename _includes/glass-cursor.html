@@ -1,0 +1,128 @@
+<!-- Glass Cursor Effect -->
+<div id="glass-cursor" class="glass-cursor">
+  <span class="glass-cursor-text">Read all about it <span class="glass-cursor-highlight">here</span></span>
+</div>
+
+<style>
+.glass-cursor {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+
+  /* Frosted glass effect */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #d4d4d4;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.1);
+
+  /* Center content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-cursor.is-visible {
+  opacity: 1;
+}
+
+.glass-cursor-text {
+  font-family: Inter, -apple-system, sans-serif;
+  font-size: 14px;
+  color: #666;
+  letter-spacing: 0;
+  user-select: none;
+  text-align: center;
+}
+
+.glass-cursor-highlight {
+  color: #1a1a1a;
+}
+
+/* Hide default cursor on trigger elements */
+[data-glass-cursor] {
+  cursor: none;
+}
+</style>
+
+<script>
+(function() {
+  // Disable on touch devices
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    return;
+  }
+
+  const cursor = document.getElementById('glass-cursor');
+  if (!cursor) return;
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let cursorX = 0;
+  let cursorY = 0;
+  let isVisible = false;
+  let rafId = null;
+
+  const ease = 0.15;
+
+  function animate() {
+    // Smooth easing
+    cursorX += (mouseX - cursorX) * ease;
+    cursorY += (mouseY - cursorY) * ease;
+
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+
+    rafId = requestAnimationFrame(animate);
+  }
+
+  function showCursor() {
+    if (!isVisible) {
+      isVisible = true;
+      cursor.classList.add('is-visible');
+      if (!rafId) {
+        rafId = requestAnimationFrame(animate);
+      }
+    }
+  }
+
+  function hideCursor() {
+    isVisible = false;
+    cursor.classList.remove('is-visible');
+  }
+
+  // Track mouse position
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  // Set up trigger elements
+  const triggers = document.querySelectorAll('[data-glass-cursor]');
+  triggers.forEach(function(trigger) {
+    trigger.addEventListener('mouseenter', function(e) {
+      // Instantly position cursor at mouse location
+      cursorX = e.clientX;
+      cursorY = e.clientY;
+      cursor.style.left = cursorX + 'px';
+      cursor.style.top = cursorY + 'px';
+      showCursor();
+    });
+
+    trigger.addEventListener('mouseleave', hideCursor);
+  });
+
+  // Hide cursor when window loses focus (alt-tab)
+  window.addEventListener('blur', hideCursor);
+
+  // Start animation loop
+  rafId = requestAnimationFrame(animate);
+})();
+</script>

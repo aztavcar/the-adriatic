@@ -1,0 +1,174 @@
+// =============================================
+//   ISR-Style Glassmorphism Sidebar
+// =============================================
+
+.sidebar {
+  position: sticky;
+  top: 2rem;
+  width: fit-content;
+  margin: 2rem auto 0;
+  padding: 0.75rem 1.5rem;
+  z-index: 100;
+
+  // Core glassmorphism effect
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+
+  // Semi-transparent gradient background
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.15)
+  );
+
+  // Subtle white border for edge definition
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+
+  // Layered shadows for depth
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.07),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+
+    a {
+      color: var(--adriatic-text);
+      font-size: 0.875rem;
+      font-weight: 450;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+      letter-spacing: 0.01em;
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      &.active {
+        font-weight: 600;
+        background: rgba(0, 0, 0, 0.04);
+        padding: 0.25em 0.5em;
+        margin: -0.25em -0.5em;
+        border-radius: 4px;
+      }
+
+      &.home-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .subscribe-btn {
+    background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: var(--shadow-md);
+
+    &:hover {
+      box-shadow: var(--shadow-lg);
+      opacity: 0.9;
+    }
+
+    .envelope-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 16px;
+      height: 16px;
+    }
+
+    .envelope-closed,
+    .envelope-open {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: none;
+    }
+
+    .envelope-closed {
+      opacity: 1;
+    }
+
+    .envelope-open {
+      opacity: 0;
+    }
+
+    &:hover .envelope-closed {
+      opacity: 0;
+    }
+
+    &:hover .envelope-open {
+      opacity: 1;
+    }
+  }
+}
+
+// Firefox fallback
+@supports not (backdrop-filter: blur(12px)) {
+  .sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow:
+      0 4px 12px 0 rgba(0, 0, 0, 0.12),
+      0 12px 40px -8px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+// Hamburger button - hidden on desktop
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: var(--adriatic-text);
+
+  .close-icon {
+    display: none;
+  }
+}
+
+.sidebar.menu-open .hamburger-btn {
+  .hamburger-icon {
+    display: none;
+  }
+  .close-icon {
+    display: block;
+  }
+}
+
+// Mobile menu dropdown - hidden by default
+.mobile-menu {
+  display: none;
+}

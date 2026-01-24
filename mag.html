@@ -1,0 +1,132 @@
+---
+layout: default
+title: Mag
+permalink: /mag/
+---
+
+<div class="mag-container">
+  <div class="mag-content-wrapper">
+    <div class="mag-left-section">
+      <div class="mag-intro">
+        <p>Each annual edition of <em>The Adriatic</em> features original cover art by Ciril Horjak, the Slovenian illustrator and comic strip artist who received the Prešeren Award - Slovenia's highest recognition for artistic achievement. We commission new work for every issue, transforming each edition into something between magazine and art book. A collectible object designed to hold its place on the shelf long after the news cycle has moved on.</p>
+
+        <p>The print magazine launches each January at our flagship Strategic Foresight gathering in Ljubljana, where business leaders, policymakers and intellectuals convene to discuss the forces shaping the region's future. To secure your copy and stay informed about upcoming events, sign up to our <a href="{{ '/newsletter' | relative_url }}"><mark class="rose">newsletter</mark></a>.</p>
+      </div>
+
+      <div class="edition-details" id="editionDetails">
+        <p class="edition-title"><strong>2026 — Title</strong></p>
+        <p class="edition-description">A description of the 2026 edition's contents and themes. This will change as you navigate through different editions.</p>
+      </div>
+    </div>
+
+    <div class="carousel-container">
+    <button class="carousel-arrow carousel-arrow-left" id="prevButton" style="opacity: 0; pointer-events: none;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="transform: scaleX(-1);">
+        <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+      </svg>
+    </button>
+
+    <div class="carousel-track-container">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- 2026 Edition -->
+        <div class="carousel-slide active" data-edition="2026" data-title="2026 — Title" data-description="A description of the 2026 edition's contents and themes. This will change as you navigate through different editions.">
+          <div class="cover-placeholder">
+            <span>2026 Edition</span>
+          </div>
+        </div>
+
+        <!-- 2025 Edition -->
+        <div class="carousel-slide" data-edition="2025" data-title="2025 — Title" data-description="A description of the 2025 edition's contents and themes. Placeholder text for the previous year's publication.">
+          <div class="cover-placeholder">
+            <span>2025 Edition</span>
+          </div>
+        </div>
+
+        <!-- 2024 Edition -->
+        <div class="carousel-slide" data-edition="2024" data-title="2024 — Title" data-description="A description of the 2024 edition's contents and themes. Placeholder text for this earlier edition.">
+          <div class="cover-placeholder">
+            <span>2024 Edition</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-arrow carousel-arrow-right" id="nextButton">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+      </svg>
+    </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const track = document.getElementById('carouselTrack');
+  const slides = Array.from(track.children);
+  const nextButton = document.getElementById('nextButton');
+  const prevButton = document.getElementById('prevButton');
+  const editionDetails = document.getElementById('editionDetails');
+
+  let currentSlide = 0;
+
+  function updateCarousel() {
+    // Move track
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
+    // Update active slide
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === currentSlide);
+    });
+
+    // Update edition info
+    const currentEdition = slides[currentSlide].dataset.edition;
+    const currentTitle = slides[currentSlide].dataset.title;
+    const currentDescription = slides[currentSlide].dataset.description;
+
+    // Fade out
+    editionDetails.style.opacity = '0';
+
+    // Wait for fade out, then update content and fade in
+    setTimeout(() => {
+      editionDetails.querySelector('.edition-title').innerHTML = `<strong>${currentTitle}</strong>`;
+      editionDetails.querySelector('.edition-description').textContent = currentDescription;
+      editionDetails.style.opacity = '1';
+    }, 300);
+
+    // Update arrow visibility
+    if (currentSlide === 0) {
+      prevButton.style.opacity = '0';
+      prevButton.style.pointerEvents = 'none';
+    } else {
+      prevButton.style.opacity = '1';
+      prevButton.style.pointerEvents = 'auto';
+    }
+
+    if (currentSlide === slides.length - 1) {
+      nextButton.style.opacity = '0';
+      nextButton.style.pointerEvents = 'none';
+    } else {
+      nextButton.style.opacity = '1';
+      nextButton.style.pointerEvents = 'auto';
+    }
+  }
+
+  nextButton.addEventListener('click', () => {
+    if (currentSlide < slides.length - 1) {
+      currentSlide++;
+      updateCarousel();
+    }
+  });
+
+  prevButton.addEventListener('click', () => {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateCarousel();
+    }
+  });
+
+  // Handle window resize
+  window.addEventListener('resize', updateCarousel);
+</script>

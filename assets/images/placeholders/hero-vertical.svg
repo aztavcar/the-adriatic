@@ -1,0 +1,22 @@
+<svg width="675" height="900" viewBox="0 0 675 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="675" height="900" fill="#e8e0e0"/>
+  <rect x="1" y="1" width="673" height="898" stroke="#d0c8c8" stroke-width="2" fill="none"/>
+
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid-v" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#d8d0d0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="675" height="900" fill="url(#grid-v)"/>
+
+  <!-- Center icon -->
+  <g transform="translate(287, 400)">
+    <rect x="10" y="10" width="80" height="80" rx="8" stroke="#b0a8a8" stroke-width="2" fill="none"/>
+    <circle cx="35" cy="35" r="12" stroke="#b0a8a8" stroke-width="2" fill="none"/>
+    <path d="M90 90 L65 55 L30 90" stroke="#b0a8a8" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- Dimensions label -->
+  <text x="337" y="520" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#a09898">675 × 900 (3:4 Vertical)</text>
+</svg>

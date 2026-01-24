@@ -1,0 +1,389 @@
+// =============================================
+//   Responsive Design
+// =============================================
+
+// Tablet (1024px)
+@media (max-width: 1024px) {
+  .adriatic-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // Featured section tablet adjustments
+  a.featured-hero-container {
+    grid-template-rows: 500px;
+  }
+
+  .featured-content {
+    max-width: 60%;
+  }
+
+  .featured-content-sticky {
+    top: 280px;
+  }
+}
+
+// Mobile (768px)
+@media (max-width: 768px) {
+  // Mobile navbar - edge to edge with glassmorphism
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 0;
+    z-index: 1000;
+
+    nav {
+      justify-content: space-between;
+      gap: 0;
+    }
+  }
+
+  // Hide desktop nav links, show hamburger
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Keep full subscribe button on mobile
+  .subscribe-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  // Mobile dropdown menu
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 0 0;
+    margin-top: 0.75rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+    a {
+      display: block;
+      padding: 0.75rem 0;
+      color: var(--adriatic-text);
+      font-size: 0.9rem;
+      font-weight: 450;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      &.active {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .sidebar.menu-open .mobile-menu {
+    display: flex;
+  }
+
+  // Add padding to main content for fixed navbar
+  .adriatic-main {
+    padding: 0 1rem;
+    padding-top: 4rem;
+  }
+
+  .adriatic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .adriatic-title {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+
+  // Masthead meta - responsive layout
+  .header-meta {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+
+    .date {
+      white-space: nowrap;
+    }
+
+    .divider {
+      flex: 0 0 auto;
+      width: 40px;
+      max-width: 40px;
+      margin: 0 0.75rem;
+    }
+
+    .categories {
+      white-space: nowrap;
+    }
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .footer-left,
+  .footer-right {
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+
+  // Featured article mobile - full-bleed hero
+  .featured-article {
+    max-width: 100%;
+    margin: 0 0 3rem;
+    padding: 0;
+  }
+
+  a.featured-hero-container {
+    grid-template-rows: 70vh;
+    border-radius: 0;
+  }
+
+  .featured-card {
+    border-radius: 0;
+  }
+
+  .featured-image,
+  .featured-image img {
+    border-radius: 0;
+  }
+
+  .featured-content-sticky {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .featured-content {
+    max-width: 90%;
+    padding: 1.5rem;
+    margin: 0;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .featured-lede {
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  // Masthead adjustments for mobile
+  .adriatic-header {
+    padding: 1.5rem 1rem;
+    margin-bottom: 0;
+  }
+
+  // Search bar mobile
+  .adriatic-search {
+    padding: 2rem 1rem;
+  }
+
+  .search-container {
+    max-width: 100%;
+  }
+
+  // Post page mobile
+  .post-header,
+  .post-content,
+  .post-hero-image,
+  .post-image-caption,
+  .post-footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .post-title {
+    font-size: 2rem;
+  }
+
+  .post-lede {
+    font-size: 1rem;
+  }
+
+  .post-content {
+    font-size: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+  }
+
+  .post-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .share-links {
+    flex-wrap: wrap;
+  }
+
+  // About page mobile
+  .about-container {
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  // Mag page mobile
+  .mag-container {
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  .mag-content-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .mag-left-section {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .mag-intro {
+    margin-bottom: 1.5rem;
+  }
+
+  .carousel-container {
+    gap: 1.5rem;
+  }
+
+  .carousel-track-container {
+    max-width: 100%;
+  }
+
+  .carousel-arrow svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .cover-placeholder {
+    max-width: 350px;
+  }
+
+  // Archive page mobile
+  .archive-container {
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  .archive-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .archive-item {
+    padding: 1.25rem 0;
+  }
+
+  .archive-title {
+    font-size: 1.25rem;
+  }
+
+  .archive-date,
+  .archive-excerpt {
+    font-size: 0.8125rem;
+  }
+
+  .archive-pagination {
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .pagination-link,
+  .pagination-number {
+    font-size: 0.8125rem;
+  }
+}
+
+// Extra small screens (480px)
+@media (max-width: 480px) {
+  a.featured-hero-container {
+    grid-template-rows: 60vh;
+  }
+
+  .featured-content-sticky {
+    padding: 1rem;
+  }
+
+  .featured-content {
+    max-width: 100%;
+    padding: 1.25rem;
+
+    h2 {
+      font-size: 1.2rem;
+      line-height: 1.2;
+    }
+  }
+
+  .featured-lede {
+    font-size: 0.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .featured-category {
+    font-size: 0.65rem;
+  }
+
+  .adriatic-title {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  // Extra small masthead - hide divider and categories
+  .header-meta {
+    font-size: 0.55rem;
+
+    .divider,
+    .categories {
+      display: none;
+    }
+  }
+
+  .sidebar nav {
+    gap: 0.75rem;
+
+    a {
+      font-size: 0.7rem;
+    }
+  }
+
+  .article-card-overlay h3 {
+    font-size: 0.95rem;
+  }
+
+  .article-card-overlay .author {
+    font-size: 0.65rem;
+  }
+}

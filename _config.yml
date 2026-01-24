@@ -1,0 +1,56 @@
+title: The Adriatic
+description: News and stories from the Adriatic region
+url: "https://theadriatic.com"
+baseurl: ""
+
+# SEO settings
+author:
+  name: The Adriatic
+twitter:
+  card: summary_large_image
+social:
+  name: The Adriatic
+  links:
+    - https://facebook.com/theadriatic
+    - https://linkedin.com/company/the-adriatic
+logo: /assets/images/logo.png
+
+# Build settings
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+
+# Sass
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Pagination
+paginate: 25
+paginate_path: "/archive/:num/"
+
+# Collections
+collections:
+  posts:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

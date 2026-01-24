@@ -1,0 +1,89 @@
+<!-- Time Greeting -->
+<div class="adriatic-greeting" id="adriatic-greeting">
+  <span class="greeting-time"></span>
+  <span class="greeting-text"></span>
+</div>
+
+<script>
+(function() {
+  function getGreeting(hours) {
+    if (hours >= 5 && hours < 9) {
+      return {
+        period: 'early-morning',
+        greeting: 'Good morning',
+        message: "here's something to get you started"
+      };
+    } else if (hours >= 9 && hours < 12) {
+      return {
+        period: 'late-morning',
+        greeting: 'Good morning',
+        message: "here's something to go with your coffee"
+      };
+    } else if (hours >= 12 && hours < 14) {
+      return {
+        period: 'lunch',
+        greeting: 'Good afternoon',
+        message: "here's something for your break"
+      };
+    } else if (hours >= 14 && hours < 17) {
+      return {
+        period: 'afternoon',
+        greeting: 'Good afternoon',
+        message: "here's something for the home stretch"
+      };
+    } else if (hours >= 17 && hours < 19) {
+      return {
+        period: 'early-evening',
+        greeting: 'Good evening',
+        message: "here's something for the golden hour"
+      };
+    } else if (hours >= 19 && hours < 21) {
+      return {
+        period: 'evening',
+        greeting: 'Good evening',
+        message: "here's something to wind down with"
+      };
+    } else {
+      return {
+        period: 'night',
+        greeting: 'Good night',
+        message: "here's something for the late hours"
+      };
+    }
+  }
+
+  function formatTime(hours, minutes) {
+    const m = minutes.toString().padStart(2, '0');
+    return `${hours}:${m}`;
+  }
+
+  function updateGreeting() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    const timeStr = formatTime(hours, minutes);
+    const { greeting, message } = getGreeting(hours);
+
+    const timeEl = document.querySelector('.greeting-time');
+    const greetingEl = document.querySelector('.greeting-text');
+    if (timeEl) {
+      timeEl.innerHTML = `It's ${timeStr} in Ljubljana.`;
+    }
+    if (greetingEl) {
+      greetingEl.innerHTML = `${greeting}, ${message}.`;
+    }
+  }
+
+  // Initial update
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      updateGreeting();
+      setInterval(updateGreeting, 60000); // Update every minute
+    });
+  } else {
+    updateGreeting();
+    setInterval(updateGreeting, 60000);
+  }
+})();
+</script>

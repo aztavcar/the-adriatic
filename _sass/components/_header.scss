@@ -1,0 +1,56 @@
+// =============================================
+//   Page Header
+// =============================================
+
+.adriatic-header {
+  text-align: center;
+  padding: 1.5rem 2rem 2rem;
+}
+
+.header-icon {
+  margin-bottom: 1rem;
+
+  svg {
+    width: 40px;
+    height: 40px;
+    color: var(--adriatic-text);
+  }
+}
+
+.adriatic-title {
+  font-family: var(--adriatic-font-masthead);
+  font-size: clamp(4rem, 12vw, 11rem);
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.75;
+  color: var(--adriatic-accent);
+  margin: 3rem 0 0;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--adriatic-text-muted);
+
+  .date {
+    color: var(--adriatic-text);
+  }
+
+  .divider {
+    flex: 1;
+    max-width: 200px;
+    height: 1px;
+    background: var(--adriatic-border);
+  }
+
+  .categories {
+    color: var(--adriatic-text);
+  }
+}

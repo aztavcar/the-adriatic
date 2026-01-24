@@ -1,0 +1,24 @@
+// =============================================
+//   Time Greeting
+// =============================================
+
+.adriatic-greeting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 0.25rem;
+}
+
+.greeting-time,
+.greeting-text {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.8rem;
+  color: #999;
+  text-align: center;
+}
+
+.greeting-text {
+  padding-top: 0.25rem;
+}

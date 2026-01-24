@@ -1,0 +1,149 @@
+// =============================================
+//   Article Grid & Cards
+// =============================================
+
+.adriatic-grid-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+.adriatic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+// Article Card
+.article-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: relative;
+  padding-top: 2rem;
+
+  // Vertical divider between cards
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -0.75rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: var(--adriatic-border);
+  }
+
+  &.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  &:hover {
+    .article-card-image {
+      box-shadow: var(--shadow-xl);
+    }
+  }
+}
+
+.article-card-author {
+  display: block;
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  color: var(--adriatic-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.article-card-title {
+  font-family: var(--adriatic-font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--adriatic-text);
+  margin: 1rem 0 0;
+}
+
+.article-card-image {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--adriatic-card-bg);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.3s ease;
+
+  // Pixelation canvas
+  .pixelated-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  // Hidden source image for canvas reference
+  .source-image {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  img:not(.source-image) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  // Placeholder styles
+  .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.blue {
+      background: linear-gradient(135deg, #1e3a5f 0%, #4a7ba7 100%);
+    }
+
+    &.white {
+      background: #f5f5f5;
+    }
+
+    &.photo {
+      background: linear-gradient(135deg, #8b7355 0%, #c4a77d 100%);
+    }
+  }
+}
+
+
+// View More Button
+.view-more-section {
+  text-align: center;
+  padding: 2rem 0 4rem;
+}
+
+.view-more-btn {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--adriatic-border);
+  border-radius: 4px;
+  padding: 0.75rem 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: var(--adriatic-text);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+
+  &:hover {
+    border-color: var(--adriatic-text);
+    background: rgba(0, 0, 0, 0.05);
+  }
+}

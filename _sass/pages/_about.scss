@@ -1,0 +1,101 @@
+// =============================================
+//   About Page Styles
+// =============================================
+
+.about-container {
+  max-width: 630px;
+  margin: 0 auto;
+  padding: 4rem 2rem 4rem;
+  font-family: var(--adriatic-font-sans);
+  color: var(--adriatic-text);
+
+  h1 {
+    font-family: var(--adriatic-font-body);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--adriatic-text);
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-family: var(--adriatic-font-body);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 2.1875rem 0 1rem;
+    color: var(--adriatic-text);
+    text-align: center;
+  }
+
+  h3 {
+    font-family: var(--adriatic-font-body);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 2rem 0 0.75rem;
+    color: var(--adriatic-text);
+    text-align: center;
+  }
+
+  p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    color: var(--adriatic-text);
+  }
+
+  em {
+    font-family: var(--adriatic-font-sans);
+    font-style: normal;
+    font-size: 0.875rem;
+    color: var(--adriatic-text);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .external-icon {
+    display: inline-block;
+    margin-left: -2px;
+    color: rgba(0, 0, 0, 0.4);
+    vertical-align: text-top;
+    transition: color 0.2s;
+
+    svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.about-motto {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .motto-text {
+    font-family: var(--adriatic-font-body);
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1.1;
+    color: var(--adriatic-text);
+    margin-bottom: 1rem;
+  }
+
+  .issue-link {
+    font-family: var(--adriatic-font-sans);
+    font-size: 0.75rem;
+    font-weight: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--adriatic-text-muted);
+    margin-bottom: 0;
+  }
+}
