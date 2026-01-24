@@ -3,6 +3,7 @@ layout: post
 layout_type: feature
 title: "They're young. And they're hungry."
 date: 2026-01-22
+last_modified_at: 2026-01-22
 author: "Andraž Tavčar"
 category: Business
 kicker: "The New Savers"

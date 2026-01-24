@@ -2,6 +2,7 @@
 layout: post
 title: "A new face, an old dilemma"
 date: 2026-01-01
+last_modified_at: 2026-01-01
 category: politics
 category_display: Another start-up party
 author: Andraž Tavčar

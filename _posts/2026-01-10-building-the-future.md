@@ -2,6 +2,7 @@
 layout: post
 title: "Building the future: technology & innovation in the Adriatic region"
 date: 2026-01-10
+last_modified_at: 2026-01-10
 category: business
 category_display: Tech
 author: Editorial Team

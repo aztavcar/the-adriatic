@@ -2,6 +2,7 @@
 layout: post
 title: "The long march to Europe"
 date: 2026-01-08
+last_modified_at: 2026-01-08
 category: politics
 category_display: Same as the old
 author: Andraž Tavčar

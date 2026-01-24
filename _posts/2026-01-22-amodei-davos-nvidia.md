@@ -2,6 +2,7 @@
 layout: post
 title: "Dario Amodei came to Davos to lob a grenade"
 date: 2026-01-22
+last_modified_at: 2026-01-22
 author: "Andraž Tavčar"
 category: Technology
 kicker: "The Davos Standoff"

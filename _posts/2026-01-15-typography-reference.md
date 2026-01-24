@@ -2,6 +2,7 @@
 layout: post
 title: "Typography and image reference"
 date: 2026-01-15
+last_modified_at: 2026-01-15
 category: living
 category_display: Style guide
 author: Editorial Team

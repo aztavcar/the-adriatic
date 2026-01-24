@@ -2,6 +2,7 @@
 layout: post
 title: "Hungary outbids UAE for Serbian oil prize"
 date: 2026-01-19
+last_modified_at: 2026-01-19
 author: "Andraž Tavčar"
 category: Business
 kicker: "Sanctions Scramble"

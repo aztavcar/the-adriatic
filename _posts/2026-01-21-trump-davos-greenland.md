@@ -2,6 +2,7 @@
 layout: post
 title: "At Davos, Trump demands Greenland and Europe hits back"
 date: 2026-01-21
+last_modified_at: 2026-01-21
 author: "Andraž Tavčar"
 category: Politics
 kicker: "The Davos Standoff"

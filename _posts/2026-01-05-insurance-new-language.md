@@ -2,6 +2,7 @@
 layout: post
 title: "Insurance needs a new language that explains rather than entertains"
 date: 2026-01-05
+last_modified_at: 2026-01-05
 category: business
 category_display: Infantilisation
 author: Andraž Tavčar

@@ -2,6 +2,7 @@
 layout: post
 title: "Belgrade's water crisis deepens"
 date: 2025-12-28
+last_modified_at: 2025-12-28
 category: living
 category_display: Infrastructure
 author: Marko Petrović
