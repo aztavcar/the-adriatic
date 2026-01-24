@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: The Adriatic
 ---
 
 <!-- Page Header -->
@@ -29,7 +29,7 @@ title: Home
           <span class="eyebrow-text">{% if featured.kicker %}{{ featured.kicker }}{% elsif featured.category_display %}{{ featured.category_display }}{% else %}{{ featured.category | capitalize }}{% endif %}</span>
         </div>
         <h2 class="feature-headline">{{ featured.title }}</h2>
-        {% if featured.deck %}<p class="feature-deck">{{ featured.deck }}</p>{% elsif featured.lede %}<p class="feature-deck">{{ featured.lede }}</p>{% elsif featured.excerpt %}<p class="feature-deck">{{ featured.excerpt | strip_html }}</p>{% endif %}
+        {% if featured.description %}<p class="feature-deck">{{ featured.description }}</p>{% elsif featured.excerpt %}<p class="feature-deck">{{ featured.excerpt | strip_html }}</p>{% endif %}
         {% if featured.author %}<p class="feature-byline">By {{ featured.author }}{% if featured.author_secondary %} and {{ featured.author_secondary }}{% endif %}</p>{% endif %}
       </div>
       <div class="feature-image-wrapper">
@@ -52,7 +52,7 @@ title: Home
           <span class="eyebrow-text">{% if featured.kicker %}{{ featured.kicker }}{% elsif featured.category_display %}{{ featured.category_display }}{% else %}{{ featured.category | capitalize }}{% endif %}</span>
         </div>
         <h2 class="featured-headline">{{ featured.title }}</h2>
-        {% if featured.deck %}<p class="featured-deck">{{ featured.deck }}</p>{% elsif featured.lede %}<p class="featured-deck">{{ featured.lede }}</p>{% elsif featured.excerpt %}<p class="featured-deck">{{ featured.excerpt | strip_html }}</p>{% endif %}
+        {% if featured.description %}<p class="featured-deck">{{ featured.description }}</p>{% elsif featured.excerpt %}<p class="featured-deck">{{ featured.excerpt | strip_html }}</p>{% endif %}
       </div>
       <div class="featured-image-wrapper">
         {% if featured.image %}
@@ -88,7 +88,8 @@ title: Home
   <a href="{{ post.url | relative_url }}" class="horizontal-card">
     <div class="horizontal-card-image">
       {% if post.image %}
-      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+      <canvas class="pixelated-image"></canvas>
+      <img class="source-image" src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
       {% else %}
       <div class="placeholder"></div>
       {% endif %}
@@ -156,8 +157,8 @@ document.addEventListener('DOMContentLoaded', function() {
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
       this.sourceImage = sourceImage;
-      this.pixelSize = 16; // Initial pixelation
-      this.targetPixelSize = 16;
+      this.pixelSize = 8; // Initial pixelation
+      this.targetPixelSize = 8;
       this.animationId = null;
       this.isAnimating = false;
 
@@ -252,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     pixelate() {
-      this.targetPixelSize = 16;
+      this.targetPixelSize = 8;
       if (!this.isAnimating) {
         this.isAnimating = true;
         this.animate();
@@ -260,19 +261,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Initialize pixelation effect for grid cards only
-  const gridCards = document.querySelectorAll('.adriatic-grid .article-card');
+  // Only apply pixelation effect on devices with hover capability
+  const hasHover = window.matchMedia('(hover: hover)').matches;
 
-  gridCards.forEach(card => {
-    const canvas = card.querySelector('.pixelated-image');
-    const sourceImage = card.querySelector('.source-image');
+  if (hasHover) {
+    const cards = document.querySelectorAll('.horizontal-card, .adriatic-grid .article-card');
 
-    if (canvas && sourceImage) {
-      const effect = new PixelationEffect(canvas, sourceImage);
+    cards.forEach(card => {
+      const canvas = card.querySelector('.pixelated-image');
+      const sourceImage = card.querySelector('.source-image');
 
-      card.addEventListener('mouseenter', () => effect.depixelate());
-      card.addEventListener('mouseleave', () => effect.pixelate());
-    }
-  });
+      if (canvas && sourceImage) {
+        const effect = new PixelationEffect(canvas, sourceImage);
+
+        card.addEventListener('mouseenter', () => effect.depixelate());
+        card.addEventListener('mouseleave', () => effect.pixelate());
+      }
+    });
+  } else {
+    // On touch devices, hide canvas and show source image directly
+    document.querySelectorAll('.pixelated-image').forEach(canvas => {
+      canvas.style.display = 'none';
+    });
+    document.querySelectorAll('.source-image').forEach(img => {
+      img.classList.remove('source-image');
+    });
+  }
 });
 </script>

@@ -6,7 +6,7 @@ last_modified_at: 2026-01-19
 author: "Andraž Tavčar"
 category: Business
 kicker: "Sanctions Scramble"
-deck: "MOL and Gazprom Neft agreed basic terms on Monday for transferring Russia's 56% stake in NIS, with Serbia increasing its own holding by 5%. The deal requires US Treasury approval by 24 March."
+description: "MOL and Gazprom Neft agreed basic terms on Monday for transferring Russia's 56% stake in NIS, with Serbia increasing its own holding by 5%. The deal requires US Treasury approval by 24 March."
 image: https://res.cloudinary.com/dvyhebi2q/image/upload/the-adriatic/2026/01/2026-01-19-hungary-outbids-uae-for-serbian-oil-prize/oil.webp
 image_caption: "Sanctions tighten; new hands reach for the tap."
 image_credit: "ChatGPT"

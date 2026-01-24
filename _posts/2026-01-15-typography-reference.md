@@ -9,7 +9,7 @@ author: Editorial Team
 image: /assets/images/placeholders/hero-horizontal.svg
 image_caption: Horizontal hero image (16:9 aspect ratio, 1200×675px recommended)
 image_credit: The Adriatic
-excerpt: >-
+description: >-
   A comprehensive reference for typography, image placement, and styling conventions used across The Adriatic.
 hidden: true
 ---
@@ -127,7 +127,7 @@ image: /assets/images/posts/article-name/hero.jpg
 image_orientation: landscape  # or portrait (optional)
 image_caption: Description of the image
 image_credit: Photographer / Source
-deck: >-
+description: >-
   Brief deck summarising the article (15-30 words).
 ---
 ```

@@ -25,6 +25,9 @@
 /* Call-to-Action Section */
 .footer-cta {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer-logo {
@@ -42,15 +45,37 @@
 }
 
 .footer-cta-link {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   text-decoration: none;
+}
+
+.footer-share-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+
+  .footer-cta-tagline {
+    transition: opacity 0.3s ease;
+  }
+
+  .footer-cta-tagline.fade-out {
+    opacity: 0;
+  }
+}
+
+.footer-cta-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 8px;
   transition: opacity 0.2s ease;
 
   &:hover {
-    opacity: 0.8;
-
     .footer-cta-tagline mark {
       filter: brightness(0.92);
     }
@@ -71,9 +96,9 @@
 .footer-cta-tagline {
   display: block;
   font-family: var(--adriatic-font-sans);
-  font-size: 0.9375rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  color: var(--adriatic-text-muted);
+  color: #999;
   max-width: 480px;
 
   mark {

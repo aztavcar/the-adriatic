@@ -42,11 +42,6 @@
     visibility: hidden;
   }
 
-  &:hover {
-    .article-card-image {
-      box-shadow: var(--shadow-xl);
-    }
-  }
 }
 
 .article-card-author {

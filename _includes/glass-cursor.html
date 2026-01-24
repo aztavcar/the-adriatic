@@ -105,9 +105,18 @@
   });
 
   // Set up trigger elements
+  const cursorText = cursor.querySelector('.glass-cursor-text');
+  const defaultText = cursorText.innerHTML;
   const triggers = document.querySelectorAll('[data-glass-cursor]');
   triggers.forEach(function(trigger) {
     trigger.addEventListener('mouseenter', function(e) {
+      // Check for custom cursor text
+      const customText = trigger.getAttribute('data-glass-cursor');
+      if (customText) {
+        cursorText.innerHTML = customText;
+      } else {
+        cursorText.innerHTML = defaultText;
+      }
       // Instantly position cursor at mouse location
       cursorX = e.clientX;
       cursorY = e.clientY;

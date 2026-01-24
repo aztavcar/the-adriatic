@@ -6,7 +6,7 @@ last_modified_at: 2026-01-22
 author: "Andraž Tavčar"
 category: Technology
 kicker: "The Davos Standoff"
-deck: "At Davos, Anthropic's chief executive compared Nvidia's chip sales to China to nuclear proliferation - weeks after taking billions from the company. Inside his head, the logic apparently makes sense."
+description: "At Davos, Anthropic's chief executive compared Nvidia's chip sales to China to nuclear proliferation - weeks after taking billions from the company. Inside his head, the logic apparently makes sense."
 image: https://res.cloudinary.com/dvyhebi2q/image/upload/the-adriatic/2026/01/2026-01-22-amodei-davos-nvidia/hero.webp
 image_caption: "Lobbing a grenade at Davos, in the style of Geist."
 image_credit: ""

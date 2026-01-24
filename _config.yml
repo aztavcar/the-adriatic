@@ -1,5 +1,5 @@
 title: The Adriatic
-description: News and stories from the Adriatic region
+description: A slower take on a fast world.
 url: "https://aztavcar.github.io"
 baseurl: "/the-adriatic"
 
@@ -8,6 +8,7 @@ author:
   name: The Adriatic
 twitter:
   card: summary_large_image
+  # username: theadriatic  # Add if you have a Twitter/X account
 social:
   name: The Adriatic
   links:
@@ -26,14 +27,18 @@ sass:
 
 # Plugins
 plugins:
-  - jekyll-paginate
+  - jekyll-paginate-v2
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
 
-# Pagination
-paginate: 25
-paginate_path: "/archive/:num/"
+# Pagination (v2)
+pagination:
+  enabled: true
+  per_page: 25
+  permalink: "/page/:num/"
+  title: ":title - Page :num"
+  sort_reverse: true
 
 # Collections
 collections:
@@ -42,6 +47,10 @@ collections:
 
 # Defaults
 defaults:
+  - scope:
+      path: ""
+    values:
+      image: https://res.cloudinary.com/dvyhebi2q/image/upload/v1769293303/the-adriatic/site/the-adriatic.png
   - scope:
       path: ""
       type: "posts"

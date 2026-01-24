@@ -1,0 +1,88 @@
+---
+layout: default
+title: Lost at sea
+permalink: /404.html
+---
+
+<div class="error-container">
+  <img
+    src="https://res.cloudinary.com/dvyhebi2q/image/upload/v1769294512/the-adriatic/site/wipeout.png"
+    alt="Surfer wiping out"
+    class="error-image"
+  >
+  <p class="error-code">404</p>
+  <h1 class="error-title">Lost at sea.</h1>
+  <p class="error-text">The page you're looking for has drifted away - or never existed.</p>
+  <a href="{{ '/' | relative_url }}" class="error-link"><mark class="rose">Back to shore</mark></a>
+</div>
+
+<style>
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.error-image {
+  width: 180px;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+.error-code {
+  font-family: Inter, -apple-system, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--adriatic-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.error-title {
+  font-family: 'Adriatic22', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+  color: var(--adriatic-text);
+}
+
+.error-text {
+  font-family: var(--adriatic-font-sans), Inter, -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #999;
+  margin: 0 0 1rem 0;
+  max-width: 360px;
+}
+
+.error-link {
+  font-family: var(--adriatic-font-sans), Inter, -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #999;
+  text-decoration: none;
+}
+
+.error-link mark {
+  transition: filter 0.2s ease;
+}
+
+.error-link:hover mark {
+  filter: brightness(0.92);
+}
+
+@media (max-width: 480px) {
+  .error-image {
+    width: 140px;
+  }
+
+  .error-title {
+    font-size: 2rem;
+  }
+}
+</style>

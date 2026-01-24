@@ -7,7 +7,7 @@ last_modified_at: 2026-01-22
 author: "Andraž Tavčar"
 category: Business
 kicker: "The New Savers"
-deck: "Slovenia's largest asset manager posted record results in 2025, capturing nearly half of the country's net fund inflows. Its success coincides with the broader trend of young investors entering markets earlier than any previous generation."
+description: "Slovenia's largest asset manager posted record results in 2025, capturing nearly half of the country's net fund inflows. Its success coincides with the broader trend of young investors entering markets earlier than any previous generation."
 image: https://res.cloudinary.com/dvyhebi2q/image/upload/the-adriatic/2026/01/2026-01-22-nlb-skladi-gen-z-investing/hero.webp
 image_caption: "Building wealth, one coin at a time."
 image_credit: ""

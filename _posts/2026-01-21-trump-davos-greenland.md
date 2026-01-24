@@ -1,12 +1,12 @@
 ---
-layout: post
+layout: opinion
 title: "At Davos, Trump demands Greenland and Europe hits back"
 date: 2026-01-21
 last_modified_at: 2026-01-21
 author: "Andraž Tavčar"
 category: Politics
 kicker: "The Davos Standoff"
-deck: "The president ruled out military force but warned NATO allies they would face consequences for resisting. Hours later, the EU froze its trade deal with Washington."
+description: "The president ruled out military force but warned NATO allies they would face consequences for resisting. Hours later, the EU froze its trade deal with Washington."
 image: https://res.cloudinary.com/dvyhebi2q/image/upload/the-adriatic/2026/01/2026-01-21-trump-davos-greenland/hero.webp
 image_caption: "President Emmanuel Macron of France addressed the World Economic Forum in Davos on Tuesday wearing mirrored aviator sunglasses to conceal a burst blood vessel in his right eye."
 image_credit: "World Economic Forum"

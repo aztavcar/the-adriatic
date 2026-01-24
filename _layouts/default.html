@@ -105,13 +105,27 @@
           <span>THE</span>
           <span>ADRIATIC</span>
         </div>
-        <a href="{{ '/newsletter' | relative_url }}" class="footer-cta-link" data-glass-cursor>
-          <span class="footer-cta-heading">A slower take on a fast world.</span>
-          <span class="footer-cta-tagline">In your inbox every other Saturday - <mark class="rose">our newsletter</mark></span>
-          <span class="footer-stamp">
-            <img src="https://res.cloudinary.com/dvyhebi2q/image/upload/v1769263249/the-adriatic/site/easy2.png" alt="Subscribe to our newsletter">
+        {% if page.url == '/newsletter/' %}
+        <button class="footer-cta-link footer-share-btn" id="footerShareBtn" data-url="{{ '/newsletter' | absolute_url }}">
+          <span class="footer-cta-box" data-glass-cursor="Copy the <span class='glass-cursor-highlight'>link</span>">
+            <span class="footer-cta-heading">Share with a friend.</span>
+            <span class="footer-cta-tagline">Know someone who'd enjoy this?</span>
+            <span class="footer-stamp">
+              <img src="https://res.cloudinary.com/dvyhebi2q/image/upload/v1769288703/the-adriatic/site/tete-a-tete.png" alt="Share with a friend">
+            </span>
+          </span>
+        </button>
+        {% else %}
+        <a href="{{ '/newsletter' | relative_url }}" class="footer-cta-link">
+          <span class="footer-cta-box" data-glass-cursor>
+            <span class="footer-cta-heading">A slower take on a fast world.</span>
+            <span class="footer-cta-tagline">In your inbox every other Saturday - <mark class="rose">our newsletter</mark></span>
+            <span class="footer-stamp">
+              <img src="https://res.cloudinary.com/dvyhebi2q/image/upload/v1769263249/the-adriatic/site/easy2.png" alt="Subscribe to our newsletter">
+            </span>
           </span>
         </a>
+        {% endif %}
       </section>
 
       <!-- Navigation Section -->
@@ -164,6 +178,42 @@
         link.addEventListener('click', function() {
           sidebar.classList.remove('menu-open');
           hamburgerBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // Footer share button
+    const shareBtn = document.getElementById('footerShareBtn');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', function() {
+        const url = this.dataset.url || window.location.href;
+        const tagline = this.querySelector('.footer-cta-tagline');
+        const originalHTML = tagline.innerHTML;
+
+        function showCopiedMessage() {
+          tagline.classList.add('fade-out');
+          setTimeout(function() {
+            tagline.innerHTML = 'Link copied! Now send it their way.';
+            tagline.classList.remove('fade-out');
+          }, 300);
+          setTimeout(function() {
+            tagline.classList.add('fade-out');
+            setTimeout(function() {
+              tagline.innerHTML = originalHTML;
+              tagline.classList.remove('fade-out');
+            }, 300);
+          }, 5000);
+        }
+
+        navigator.clipboard.writeText(url).then(showCopiedMessage).catch(function() {
+          // Fallback
+          const textarea = document.createElement('textarea');
+          textarea.value = url;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          showCopiedMessage();
         });
       });
     }
