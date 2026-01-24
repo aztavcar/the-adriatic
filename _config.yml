@@ -1,7 +1,7 @@
 title: The Adriatic
 description: News and stories from the Adriatic region
-url: "https://theadriatic.com"
-baseurl: ""
+url: "https://aztavcar.github.io"
+baseurl: "/the-adriatic"
 
 # SEO settings
 author:
