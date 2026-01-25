@@ -151,7 +151,12 @@
   font-size: 0.875rem;
   color: var(--adriatic-text);
   text-decoration: none;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.75rem;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.2s;
 
   &:hover {
@@ -161,5 +166,73 @@
   &.active {
     font-weight: 600;
     color: var(--adriatic-accent);
+  }
+}
+
+// =============================================
+//   Archive Page Responsive
+// =============================================
+
+// Tablet (1024px)
+@media (max-width: 1024px) {
+  .archive-container {
+    padding: 3rem 1.5rem;
+  }
+}
+
+// Mobile (768px)
+@media (max-width: 768px) {
+  .archive-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .archive-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .archive-item {
+    padding: 1.25rem 0;
+  }
+
+  .archive-title {
+    font-size: 1.25rem;
+  }
+
+  .archive-date,
+  .archive-excerpt {
+    font-size: 0.8125rem;
+  }
+
+  .archive-pagination {
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .pagination-link,
+  .pagination-number {
+    font-size: 0.8125rem;
+  }
+}
+
+// Extra small (480px)
+@media (max-width: 480px) {
+  .archive-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .archive-title {
+    font-size: 1.125rem;
+  }
+
+  .archive-pagination {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .pagination-numbers {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.5rem;
   }
 }

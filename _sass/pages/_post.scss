@@ -187,12 +187,15 @@
     }
   }
 
-  // Full-width images
+  // Full-width images (overflow-safe)
   .full-width {
-    width: 100vw;
-    max-width: none;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 
     img {
       width: 100%;
@@ -251,7 +254,8 @@
   background: none;
   border: 1px solid var(--adriatic-border);
   border-radius: 4px;
-  padding: 0.4rem 0.75rem;
+  padding: 0.625rem 0.875rem;
+  min-height: 44px;
   font-family: var(--adriatic-font-default);
   font-size: 0.75rem;
   color: var(--adriatic-text-muted);

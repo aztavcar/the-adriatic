@@ -10,7 +10,7 @@
 
 .horizontal-card {
   display: grid;
-  grid-template-columns: 280px 1fr 120px;
+  grid-template-columns: minmax(200px, 280px) 1fr minmax(100px, 140px);
   gap: 2rem;
   padding: 20px 0;
   border-top: 1px solid var(--adriatic-border);
@@ -93,11 +93,75 @@
   color: var(--adriatic-text-muted);
 }
 
+// =============================================
+//   Secondary Grid - 3-column on desktop
+// =============================================
+
+.secondary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 2rem 0 0;
+  margin-top: 1rem;
+  border-top: 1px solid var(--adriatic-border);
+
+  // Grid cards have vertical layout on desktop
+  .grid-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0;
+    border-top: none;
+    position: relative;
+
+    // Vertical divider between cards
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -0.75rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: var(--adriatic-border);
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .horizontal-card-image {
+      order: 2;
+      margin-left: 0;
+      aspect-ratio: 4/3;
+    }
+
+    .horizontal-card-text {
+      order: 3;
+    }
+
+    .horizontal-card-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-top: 0.5rem;
+    }
+
+    .horizontal-card-date {
+      order: 1;
+      padding-top: 0;
+    }
+  }
+}
+
 // Responsive
 @media (max-width: 1024px) {
   .horizontal-card {
-    grid-template-columns: 100px 1fr 280px;
+    grid-template-columns: minmax(140px, 200px) 1fr minmax(80px, 120px);
     gap: 1.5rem;
+  }
+
+  .horizontal-card-image {
+    margin-left: 1rem;
   }
 
   .horizontal-card-title {
@@ -105,7 +169,7 @@
   }
 
   .horizontal-card-author {
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -131,6 +195,10 @@
 
   .horizontal-card-image {
     order: 3;
+    margin-left: 0;
+    max-width: 100%;
+    aspect-ratio: 16/9;
+    max-height: 200px;
   }
 
   .horizontal-card-title {
@@ -139,6 +207,91 @@
   }
 
   .horizontal-card-author {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  // Last horizontal card before grid needs bottom border
+  .horizontal-card:not(.grid-card):last-of-type {
+    border-bottom: none;
+  }
+
+  // Flatten grid to single column on mobile
+  .secondary-grid {
+    display: block;
+    padding: 0;
+    margin-top: 0;
+    border-top: none;
+
+    .grid-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--adriatic-border);
+
+      // Remove vertical dividers on mobile
+      &:not(:last-child)::after {
+        display: none;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      // Match horizontal card order: date → text → image
+      .horizontal-card-date {
+        order: 1;
+      }
+
+      .horizontal-card-text {
+        order: 2;
+      }
+
+      .horizontal-card-image {
+        order: 3;
+        aspect-ratio: 16/9;
+        max-height: 200px;
+      }
+
+      .horizontal-card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.25;
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .horizontal-card {
+    padding: 1.25rem 0;
+    gap: 0.75rem;
+  }
+
+  .horizontal-card-image {
+    max-height: 180px;
+  }
+
+  .horizontal-card-title {
+    font-size: 1.125rem;
+  }
+
+  .horizontal-card-date,
+  .horizontal-card-author {
+    font-size: 0.75rem;
+  }
+
+  .secondary-grid .grid-card {
+    padding: 1.25rem 0;
+    gap: 0.75rem;
+
+    .horizontal-card-image {
+      max-height: 180px;
+    }
+
+    .horizontal-card-title {
+      font-size: 1.125rem;
+    }
   }
 }

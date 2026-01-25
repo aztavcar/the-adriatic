@@ -32,7 +32,8 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
     inset 0 -1px 0 rgba(0, 0, 0, 0.03);
 
-  nav {
+  // Main top navigation bar (not mobile menu)
+  > nav {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -143,32 +144,145 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin-left: auto; // Push to right
 }
 
-// Hamburger button - hidden on desktop
+// =============================================
+//   Hamburger Button (mobile only)
+// =============================================
+
 .hamburger-btn {
-  display: none;
+  display: none; // Hidden on desktop, shown via responsive
   background: none;
   border: none;
-  padding: 0.25rem;
+  padding: 0.5rem;
   cursor: pointer;
   color: var(--adriatic-text);
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
 
-  .close-icon {
-    display: none;
+  &:hover {
+    opacity: 0.6;
   }
-}
 
-.sidebar.menu-open .hamburger-btn {
-  .hamburger-icon {
-    display: none;
-  }
-  .close-icon {
+  svg {
     display: block;
   }
+
+  // Icon toggle: show hamburger by default, X when menu is open
+  .hamburger-icon {
+    display: block;
+  }
+
+  .close-icon {
+    display: none;
+  }
 }
 
-// Mobile menu dropdown - hidden by default
+// When menu is open, swap icons and remove shadow
+.sidebar.menu-open {
+  box-shadow: none;
+
+  .hamburger-btn {
+    .hamburger-icon {
+      display: none;
+    }
+
+    .close-icon {
+      display: block;
+    }
+  }
+}
+
+// =============================================
+//   Mobile Menu Overlay
+// =============================================
+
 .mobile-menu {
-  display: none;
+  display: none; // Hidden by default, shown via JS
+  position: fixed;
+  top: 56px; // Below the navbar (adjust if navbar height changes)
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999; // Below navbar (1000)
+  background: var(--adriatic-bg);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  &.is-open {
+    display: flex;
+  }
+}
+
+.mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+
+  a {
+    font-family: var(--adriatic-font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--adriatic-text);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.6;
+    }
+
+    &.active {
+      font-weight: 600;
+    }
+  }
+}
+
+.mobile-menu-logo {
+  position: absolute;
+  bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--adriatic-font-masthead);
+  font-size: 2.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.75;
+  color: var(--adriatic-accent);
+}
+
+.mobile-menu-social {
+  position: absolute;
+  bottom: 2.5rem;
+  display: flex;
+  gap: 1.5rem;
+
+  a {
+    color: var(--adriatic-text);
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.mobile-menu-made {
+  position: absolute;
+  bottom: 1rem;
+  font-family: var(--adriatic-font-sans);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--adriatic-border);
+  text-align: center;
+  margin: 0;
 }

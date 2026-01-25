@@ -5,7 +5,11 @@ title: The Adriatic
 
 <!-- Page Header -->
 <header class="adriatic-header">
-  <h1 class="adriatic-title">{{ site.title }}</h1>
+  <h1 class="adriatic-title adriatic-title-desktop">{{ site.title }}</h1>
+  <h1 class="adriatic-title adriatic-title-mobile">
+    <span>THE</span>
+    <span>ADRIATIC</span>
+  </h1>
   <div class="header-meta">
     <span class="date">CORPORATE BRIEF, <a href="{{ '/mag' | relative_url }}" class="plain"><mark class="rose">ISSUE 2026</mark></a></span>
     <span class="divider"></span>
@@ -81,9 +85,11 @@ title: The Adriatic
   <button>Get Updates</button>
 </div>
 
-<!-- Secondary Articles - Horizontal Layout -->
+<!-- Secondary Articles -->
 <section class="secondary-articles">
   {% assign visible_posts = site.posts | where_exp: "post", "post.hidden != true" %}
+
+  <!-- Horizontal cards (posts 2-5) -->
   {% for post in visible_posts offset:1 limit:4 %}
   <a href="{{ post.url | relative_url }}" class="horizontal-card">
     <div class="horizontal-card-image">
@@ -101,29 +107,24 @@ title: The Adriatic
     <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
   </a>
   {% endfor %}
-</section>
 
-<!-- Article Grid -->
-<section class="adriatic-grid-section">
-  <div class="adriatic-grid">
+  <!-- Grid cards (posts 6-8) - 3-column on desktop, stacked on mobile -->
+  <div class="secondary-grid">
     {% for post in visible_posts offset:5 limit:3 %}
-    <a href="{{ post.url | relative_url }}" class="article-card" data-category="{{ post.category }}">
-      {% if post.author %}<span class="article-card-author">by {{ post.author }}</span>{% endif %}
-      <div class="article-card-image">
+    <a href="{{ post.url | relative_url }}" class="horizontal-card grid-card">
+      <div class="horizontal-card-image">
         {% if post.image %}
         <canvas class="pixelated-image"></canvas>
         <img class="source-image" src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
         {% else %}
-        <div class="placeholder {% cycle 'blue', 'white', 'photo' %}">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="{% cycle 'white', '#333', 'white' %}" stroke-width="1.5" opacity="0.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <polyline points="21,15 16,10 5,21"/>
-          </svg>
-        </div>
+        <div class="placeholder"></div>
         {% endif %}
       </div>
-      <h3 class="article-card-title">{{ post.title }}</h3>
+      <div class="horizontal-card-text">
+        <h3 class="horizontal-card-title">{{ post.title }}</h3>
+        <span class="horizontal-card-author">by {{ post.author }}</span>
+      </div>
+      <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
     </a>
     {% endfor %}
   </div>
@@ -265,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const hasHover = window.matchMedia('(hover: hover)').matches;
 
   if (hasHover) {
-    const cards = document.querySelectorAll('.horizontal-card, .adriatic-grid .article-card');
+    const cards = document.querySelectorAll('.horizontal-card');
 
     cards.forEach(card => {
       const canvas = card.querySelector('.pixelated-image');

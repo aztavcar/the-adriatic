@@ -20,6 +20,13 @@
   .featured-content-sticky {
     top: 280px;
   }
+
+  // Make sidebar full-width on tablet
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 // Mobile (768px)
@@ -36,63 +43,26 @@
     border-radius: 0;
     z-index: 1000;
 
-    nav {
+    > nav {
       justify-content: space-between;
       gap: 0;
     }
   }
 
-  // Hide desktop nav links, show hamburger
+  // Hide desktop nav links on mobile
   .nav-links {
     display: none;
   }
 
+  // Show hamburger button on mobile
   .hamburger-btn {
     display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   // Keep full subscribe button on mobile
   .subscribe-btn {
-    padding: 0.4rem 0.75rem;
+    padding: 0.5rem 0.875rem;
     font-size: 0.75rem;
-  }
-
-  // Mobile dropdown menu
-  .mobile-menu {
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    padding: 0.5rem 0 0;
-    margin-top: 0.75rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-
-    a {
-      display: block;
-      padding: 0.75rem 0;
-      color: var(--adriatic-text);
-      font-size: 0.9rem;
-      font-weight: 450;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      &:hover {
-        opacity: 0.6;
-      }
-
-      &.active {
-        font-weight: 600;
-      }
-    }
-  }
-
-  .sidebar.menu-open .mobile-menu {
-    display: flex;
   }
 
   // Add padding to main content for fixed navbar
@@ -101,12 +71,15 @@
     padding-top: 4rem;
   }
 
-  .adriatic-grid {
-    grid-template-columns: 1fr;
+  // Masthead: swap to stacked logo on mobile
+  .adriatic-title-desktop {
+    display: none;
   }
 
-  .adriatic-title {
-    font-size: clamp(2.5rem, 12vw, 5rem);
+  .adriatic-title-mobile {
+    display: flex;
+    font-size: clamp(3.5rem, 14vw, 5.5rem);
+    margin-bottom: 1.5rem;
   }
 
   // Masthead meta - responsive layout
@@ -357,8 +330,10 @@
     font-size: 0.65rem;
   }
 
-  .adriatic-title {
-    font-size: clamp(2rem, 10vw, 3rem);
+  // Extra small masthead - smaller stacked logo
+  .adriatic-title-mobile {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+    margin-bottom: 1rem;
   }
 
   // Extra small masthead - hide divider and categories

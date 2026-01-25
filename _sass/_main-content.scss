@@ -6,6 +6,8 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  // Use dynamic viewport height with fallback for mobile browser URL bars
   min-height: 100vh;
+  min-height: 100dvh;
   animation: fadeInUp 0.5s ease-out;
 }

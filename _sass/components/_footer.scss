@@ -106,6 +106,34 @@
   }
 }
 
+/* Copy Link Button (for newsletter page footer) */
+.footer-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  background: none;
+  border: 1px solid var(--adriatic-border);
+  border-radius: 4px;
+  padding: 0.625rem 0.875rem;
+  min-height: 44px;
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.75rem;
+  color: var(--adriatic-text-muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+
+  &:hover {
+    color: var(--adriatic-text);
+    border-color: var(--adriatic-text-muted);
+  }
+
+  .copy-text {
+    min-width: 52px;
+    text-align: left;
+  }
+}
+
 /* Footer Image */
 .footer-stamp {
   display: block;
@@ -295,5 +323,48 @@
   .footer-subscribe {
     width: 100%;
     max-width: 190px;
+  }
+}
+
+/* Extra small (480px) */
+@media (max-width: 480px) {
+  .footer-section {
+    padding: 60px 0 32px;
+  }
+
+  .footer-container {
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .footer-cta-box {
+    padding: 1.5rem 1rem;
+  }
+
+  .footer-cta-heading {
+    font-size: 20px;
+  }
+
+  .footer-cta-tagline {
+    font-size: 0.75rem;
+  }
+
+  .footer-stamp {
+    width: 160px;
+    margin-top: 1.5rem;
+  }
+
+  .footer-nav-list {
+    gap: 12px 16px;
+  }
+
+  .footer-social {
+    gap: 16px;
+    margin-top: -16px;
+  }
+
+  .footer-social-link {
+    width: 44px;
+    height: 44px;
   }
 }

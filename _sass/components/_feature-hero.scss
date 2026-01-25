@@ -116,3 +116,65 @@ a.feature-hero-container {
   text-align: right;
   margin-top: 0.5rem;
 }
+
+// =============================================
+//   Feature Hero Responsive - Extra Small
+// =============================================
+
+@media (max-width: 768px) {
+  .feature-hero {
+    padding: 2rem 1rem;
+  }
+
+  .feature-text {
+    padding-right: 0;
+  }
+
+  .feature-deck {
+    font-size: 0.75rem;
+  }
+
+  .feature-credit {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-hero {
+    padding: 1.5rem 1rem;
+  }
+
+  a.feature-hero-container {
+    gap: 0.75rem;
+  }
+
+  .feature-hero .feature-eyebrow {
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-hero .eyebrow-line {
+    width: 1.5rem;
+  }
+
+  .feature-hero .eyebrow-text {
+    font-size: 0.65rem;
+  }
+
+  .feature-headline {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-deck {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-byline {
+    font-size: 0.7rem;
+  }
+
+  .feature-credit {
+    font-size: 0.625rem;
+  }
+}

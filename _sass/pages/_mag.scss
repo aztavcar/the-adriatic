@@ -126,7 +126,12 @@
   border: none;
   color: var(--adriatic-text);
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.75rem;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.3s ease;
   flex-shrink: 0;
 
@@ -137,5 +142,86 @@
   svg {
     width: 1rem;
     height: 1rem;
+  }
+}
+
+// =============================================
+//   Mag Page Responsive
+// =============================================
+
+// Tablet (1024px)
+@media (max-width: 1024px) {
+  .mag-container {
+    padding: 3rem 1.5rem;
+  }
+
+  .mag-left-section {
+    margin-left: 1.5rem;
+    margin-right: 0;
+  }
+
+  .carousel-track-container {
+    max-width: 400px;
+  }
+
+  .cover-placeholder {
+    max-width: 320px;
+  }
+}
+
+// Mobile (768px)
+@media (max-width: 768px) {
+  .mag-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .mag-content-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .mag-left-section {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .mag-intro {
+    margin-bottom: 1.5rem;
+  }
+
+  .carousel-container {
+    gap: 0.5rem;
+  }
+
+  .carousel-track-container {
+    max-width: 100%;
+  }
+
+  .cover-placeholder {
+    max-width: 280px;
+  }
+
+  .carousel-arrow svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+// Extra small (480px)
+@media (max-width: 480px) {
+  .mag-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .cover-placeholder {
+    max-width: 220px;
+  }
+
+  .mag-intro p,
+  .mag-intro em,
+  .edition-title,
+  .edition-description {
+    font-size: 0.8125rem;
   }
 }
