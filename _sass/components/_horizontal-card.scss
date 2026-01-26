@@ -34,24 +34,7 @@
   box-shadow: var(--shadow-md);
   transition: box-shadow 0.3s ease;
 
-  // Pixelation canvas
-  .pixelated-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  // Hidden source image for canvas reference
-  .source-image {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  img:not(.source-image) {
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
