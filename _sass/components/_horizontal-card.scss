@@ -34,24 +34,7 @@
   box-shadow: var(--shadow-md);
   transition: box-shadow 0.3s ease;
 
-  // Pixelation canvas (desktop hover effect)
-  .pixelated-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  // Hidden source image for canvas reference
-  .source-image {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  img:not(.source-image) {
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -85,6 +68,15 @@
   color: var(--adriatic-text);
   margin: 0;
   transition: color 0.2s ease;
+}
+
+.horizontal-card-excerpt {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--adriatic-text-muted);
+  margin: 0;
 }
 
 .horizontal-card-author {
@@ -206,6 +198,10 @@
     line-height: 1.25;
   }
 
+  .horizontal-card-excerpt {
+    font-size: 0.8rem;
+  }
+
   .horizontal-card-author {
     font-size: 0.8rem;
   }
@@ -278,7 +274,8 @@
   }
 
   .horizontal-card-date,
-  .horizontal-card-author {
+  .horizontal-card-author,
+  .horizontal-card-excerpt {
     font-size: 0.75rem;
   }
 

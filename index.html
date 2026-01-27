@@ -94,14 +94,14 @@ title: The Adriatic
   <a href="{{ post.url | relative_url }}" class="horizontal-card">
     <div class="horizontal-card-image">
       {% if post.image %}
-      <canvas class="pixelated-image"></canvas>
-      <img class="source-image" src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
       {% else %}
       <div class="placeholder"></div>
       {% endif %}
     </div>
     <div class="horizontal-card-text">
       <h3 class="horizontal-card-title">{{ post.title }}</h3>
+      {% if post.description %}<p class="horizontal-card-excerpt">{{ post.description }}</p>{% elsif post.excerpt %}<p class="horizontal-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>{% endif %}
       <span class="horizontal-card-author">by {{ post.author }}</span>
     </div>
     <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
@@ -114,14 +114,14 @@ title: The Adriatic
     <a href="{{ post.url | relative_url }}" class="horizontal-card grid-card">
       <div class="horizontal-card-image">
         {% if post.image %}
-        <canvas class="pixelated-image"></canvas>
-        <img class="source-image" src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
         {% else %}
         <div class="placeholder"></div>
         {% endif %}
       </div>
       <div class="horizontal-card-text">
         <h3 class="horizontal-card-title">{{ post.title }}</h3>
+        {% if post.description %}<p class="horizontal-card-excerpt">{{ post.description }}</p>{% elsif post.excerpt %}<p class="horizontal-card-excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>{% endif %}
         <span class="horizontal-card-author">by {{ post.author }}</span>
       </div>
       <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
@@ -150,144 +150,4 @@ title: The Adriatic
 }
 </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Pixelation Effect Class
-  class PixelationEffect {
-    constructor(canvas, sourceImage) {
-      this.canvas = canvas;
-      this.ctx = canvas.getContext('2d');
-      this.sourceImage = sourceImage;
-      this.pixelSize = 8; // Initial pixelation
-      this.targetPixelSize = 8;
-      this.animationId = null;
-      this.isAnimating = false;
-
-      this.init();
-    }
-
-    init() {
-      if (this.sourceImage.complete) {
-        this.setup();
-      } else {
-        this.sourceImage.onload = () => this.setup();
-      }
-    }
-
-    setup() {
-      // Set canvas internal resolution
-      this.canvas.width = 480;
-      this.canvas.height = 480;
-
-      // Draw initial pixelated state
-      this.draw();
-    }
-
-    draw() {
-      const ctx = this.ctx;
-      const img = this.sourceImage;
-      const w = this.canvas.width;
-      const h = this.canvas.height;
-
-      if (!img.complete || img.naturalWidth === 0) return;
-
-      // Clear canvas
-      ctx.clearRect(0, 0, w, h);
-
-      // Calculate aspect ratio cropping (cover behavior)
-      const imgRatio = img.naturalWidth / img.naturalHeight;
-      const canvasRatio = w / h;
-
-      let sx, sy, sw, sh;
-      if (imgRatio > canvasRatio) {
-        sh = img.naturalHeight;
-        sw = sh * canvasRatio;
-        sx = (img.naturalWidth - sw) / 2;
-        sy = 0;
-      } else {
-        sw = img.naturalWidth;
-        sh = sw / canvasRatio;
-        sx = 0;
-        sy = (img.naturalHeight - sh) / 2;
-      }
-
-      if (this.pixelSize <= 1) {
-        // Draw at full resolution
-        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
-      } else {
-        // Pixelation effect
-        const scaledW = Math.ceil(w / this.pixelSize);
-        const scaledH = Math.ceil(h / this.pixelSize);
-
-        // Disable smoothing for pixelated look
-        ctx.imageSmoothingEnabled = false;
-
-        // Draw small then scale up
-        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, scaledW, scaledH);
-        ctx.drawImage(this.canvas, 0, 0, scaledW, scaledH, 0, 0, w, h);
-      }
-    }
-
-    animate() {
-      const ease = 0.15;
-      const diff = this.targetPixelSize - this.pixelSize;
-
-      if (Math.abs(diff) < 0.1) {
-        this.pixelSize = this.targetPixelSize;
-        this.draw();
-        this.isAnimating = false;
-        return;
-      }
-
-      this.pixelSize += diff * ease;
-      this.draw();
-
-      this.animationId = requestAnimationFrame(() => this.animate());
-    }
-
-    depixelate() {
-      this.targetPixelSize = 1;
-      if (!this.isAnimating) {
-        this.isAnimating = true;
-        this.animate();
-      }
-    }
-
-    pixelate() {
-      this.targetPixelSize = 8;
-      if (!this.isAnimating) {
-        this.isAnimating = true;
-        this.animate();
-      }
-    }
-  }
-
-  // Only apply pixelation effect on devices with hover capability (desktop)
-  const hasHover = window.matchMedia('(hover: hover)').matches;
-
-  if (hasHover) {
-    const cards = document.querySelectorAll('.horizontal-card');
-
-    cards.forEach(card => {
-      const canvas = card.querySelector('.pixelated-image');
-      const sourceImage = card.querySelector('.source-image');
-
-      if (canvas && sourceImage) {
-        const effect = new PixelationEffect(canvas, sourceImage);
-
-        card.addEventListener('mouseenter', () => effect.depixelate());
-        card.addEventListener('mouseleave', () => effect.pixelate());
-      }
-    });
-  } else {
-    // On touch devices, hide canvas and show source image directly
-    document.querySelectorAll('.pixelated-image').forEach(canvas => {
-      canvas.style.display = 'none';
-    });
-    document.querySelectorAll('.source-image').forEach(img => {
-      img.classList.remove('source-image');
-    });
-  }
-});
-</script>
 
