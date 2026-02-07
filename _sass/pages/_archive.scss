@@ -3,62 +3,50 @@
 // =============================================
 
 .archive-container {
-  max-width: 630px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 6rem 2rem 2rem;
   font-family: var(--adriatic-font-sans);
   color: var(--adriatic-text);
+  text-align: center;
 }
 
 .archive-header {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
-.archive-blurb {
-  font-family: var(--adriatic-font-sans);
-  font-size: 0.875rem;
-  color: var(--adriatic-text-muted);
+.archive-heading {
+  font-family: var(--adriatic-font-display);
+  font-style: normal;
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-weight: 400;
+  color: var(--adriatic-text);
+  line-height: 0.95;
   margin: 0;
 }
 
-// Archive Search
 .archive-search {
-  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
 
-  .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
+.archive-subtext {
+  font-family: var(--adriatic-font-display);
+  font-style: italic;
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin-top: 6rem;
+}
 
-  .search-icon {
-    position: absolute;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    color: var(--adriatic-text-muted);
-    pointer-events: none;
-  }
+.archive-arrow {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  color: #1a1a1a;
 
-  .search-input {
-    width: 100%;
-    padding: 0.75rem 0.75rem 0.75rem 2rem;
-    font-family: var(--adriatic-font-sans);
-    font-size: 0.875rem;
-    color: var(--adriatic-text);
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--adriatic-border);
-    outline: none;
-    transition: border-color 0.2s;
-
-    &::placeholder {
-      color: var(--adriatic-text-muted);
-    }
-
-    &:focus {
-      border-bottom-color: var(--adriatic-text);
-    }
+  .arrow-line,
+  .arrow-head {
+    transition: stroke-dashoffset 0.8s ease-out;
   }
 }
 
@@ -66,6 +54,11 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  transition: opacity 0.6s ease;
+
+  &.search-focused {
+    opacity: 0.4;
+  }
 
   &:hover .archive-item a {
     opacity: 0.4;
@@ -85,6 +78,12 @@
     color: inherit;
     display: block;
     transition: opacity 0.2s ease;
+  }
+
+  &.no-results {
+    font-family: var(--adriatic-font-sans);
+    color: var(--adriatic-text-muted);
+    border-bottom: none;
   }
 }
 

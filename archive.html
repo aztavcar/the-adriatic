@@ -9,90 +9,275 @@ pagination:
 
 <div class="archive-container">
   <div class="archive-header">
-    <p class="archive-blurb">Everything we've written this year.</p>
+    <h1 class="archive-heading">Everything we've written thus far...</h1>
   </div>
 
   <!-- Search Bar -->
   <section class="archive-search">
     <div class="search-container">
-      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-      </svg>
-      <input type="text" id="archive-search" class="search-input" placeholder="Search articles...">
+      <div class="search-wrapper">
+        <div class="search-input-group">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <div class="search-input-wrapper">
+            <input
+              type="text"
+              id="archive-search"
+              placeholder=""
+              role="combobox"
+              aria-autocomplete="list"
+              aria-controls="search-suggestions"
+              aria-expanded="false"
+            >
+            <span class="search-placeholder" id="search-placeholder">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <!-- Suggestions dropdown -->
+      <div class="search-suggestions" id="search-suggestions" role="listbox" aria-label="Article suggestions">
+        <!-- Results populated by JS -->
+      </div>
     </div>
   </section>
 
-  <ul class="archive-list">
-    {% for post in paginator.posts %}
-      <li class="archive-item">
-        <a href="{{ post.url | relative_url }}">
-          <div class="archive-date">{{ post.date | date: "%-d %B %Y" }}</div>
-          <h2 class="archive-title">{{ post.title }}</h2>
-          {% if post.description %}
-            <div class="archive-excerpt">{{ post.description }}</div>
-          {% elsif post.excerpt %}
-            <div class="archive-excerpt">{{ post.excerpt | strip_html }}</div>
-          {% endif %}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+  <p class="archive-subtext">...with more to come.</p>
 
-  {% if paginator.total_pages > 1 %}
-  <div class="archive-pagination">
-    {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-link pagination-prev">&larr; Previous</a>
-    {% else %}
-      <span class="pagination-link pagination-prev disabled">&larr; Previous</span>
-    {% endif %}
-
-    <div class="pagination-numbers">
-      {% for page in (1..paginator.total_pages) %}
-        {% if page == paginator.page %}
-          <span class="pagination-number active">{{ page }}</span>
-        {% elsif page == 1 %}
-          <a href="{{ paginator.first_page_path | relative_url }}" class="pagination-number">{{ page }}</a>
-        {% else %}
-          <a href="{{ site.baseurl }}/archive/page/{{ page }}/" class="pagination-number">{{ page }}</a>
-        {% endif %}
-      {% endfor %}
-    </div>
-
-    {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-link pagination-next">Next &rarr;</a>
-    {% else %}
-      <span class="pagination-link pagination-next disabled">Next &rarr;</span>
-    {% endif %}
+  <div class="archive-arrow">
+    <svg id="archive-arrow-svg" width="80" viewBox="0 0 50 120" preserveAspectRatio="xMidYMin meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="arrow-line" d="M25 5 C 28 30, 30 50, 27 80 S 24 95, 25 105" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path class="arrow-head" d="M15 95 L 25 115 L 35 95" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
   </div>
-  {% endif %}
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.getElementById('archive-search');
-  const archiveItems = document.querySelectorAll('.archive-item');
-  const pagination = document.querySelector('.archive-pagination');
+  const searchPlaceholder = document.getElementById('search-placeholder');
+  const suggestions = document.getElementById('search-suggestions');
+  let allPosts = [];
+  let placeholderInterval = null;
+  let selectedIndex = -1;
 
+  // Placeholder prompts
+  const prompts = [
+    'Try "politics"',
+    'Try "business"',
+    'Try "living"',
+    'Try "culture"'
+  ];
+  let currentPromptIndex = 0;
+
+  // Cycle through placeholders with scroll animation
+  function cyclePlaceholder() {
+    if (searchInput.value) return;
+
+    searchPlaceholder.classList.add('scroll-out');
+
+    setTimeout(() => {
+      currentPromptIndex = (currentPromptIndex + 1) % prompts.length;
+      searchPlaceholder.textContent = prompts[currentPromptIndex];
+      searchPlaceholder.classList.remove('scroll-out');
+      searchPlaceholder.classList.add('scroll-in');
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          searchPlaceholder.classList.remove('scroll-in');
+        });
+      });
+    }, 400);
+  }
+
+  function startPlaceholderCycle() {
+    if (placeholderInterval) return;
+    placeholderInterval = setInterval(cyclePlaceholder, 3000);
+  }
+
+  function stopPlaceholderCycle() {
+    if (placeholderInterval) {
+      clearInterval(placeholderInterval);
+      placeholderInterval = null;
+    }
+  }
+
+  function showSuggestions(results) {
+    if (results.length === 0) {
+      suggestions.innerHTML = '<div class="search-suggestion-item no-results">No articles found</div>';
+    } else {
+      suggestions.innerHTML = results.map((post, index) => `
+        <a href="${post.url}" class="search-suggestion-item" role="option" data-index="${index}">
+          <span class="suggestion-title">${post.title}</span>
+          <span class="suggestion-date">${post.date}</span>
+        </a>
+      `).join('');
+    }
+    suggestions.classList.add('is-open');
+    searchInput.setAttribute('aria-expanded', 'true');
+    selectedIndex = -1;
+  }
+
+  function hideSuggestions() {
+    suggestions.classList.remove('is-open');
+    searchInput.setAttribute('aria-expanded', 'false');
+    selectedIndex = -1;
+  }
+
+  function updateSelection(newIndex) {
+    const items = suggestions.querySelectorAll('.search-suggestion-item:not(.no-results)');
+    if (items.length === 0) return;
+
+    // Wrap around
+    if (newIndex < 0) newIndex = items.length - 1;
+    if (newIndex >= items.length) newIndex = 0;
+
+    // Remove previous selection
+    items.forEach(item => item.classList.remove('is-selected'));
+
+    // Add new selection
+    selectedIndex = newIndex;
+    items[selectedIndex].classList.add('is-selected');
+    items[selectedIndex].scrollIntoView({ block: 'nearest' });
+  }
+
+  // Disable input until index loads
+  searchInput.disabled = true;
+  searchPlaceholder.textContent = 'Loading...';
+
+  // Fetch all posts for search
+  fetch('{{ "/search.json" | relative_url }}')
+    .then(response => response.json())
+    .then(data => {
+      allPosts = data;
+      searchInput.disabled = false;
+      searchPlaceholder.textContent = prompts[0];
+      startPlaceholderCycle();
+    })
+    .catch(err => {
+      console.error('Search index failed to load:', err);
+      searchPlaceholder.textContent = 'Search unavailable';
+    });
+
+  // Hide placeholder on focus
+  searchInput.addEventListener('focus', function() {
+    searchPlaceholder.classList.add('hidden');
+    stopPlaceholderCycle();
+  });
+
+  // Handle blur with delay for click events
+  searchInput.addEventListener('blur', function() {
+    setTimeout(() => {
+      hideSuggestions();
+      if (!this.value) {
+        searchPlaceholder.classList.remove('hidden');
+        currentPromptIndex = 0;
+        searchPlaceholder.textContent = prompts[0];
+        startPlaceholderCycle();
+      }
+    }, 150);
+  });
+
+  // Filter and show suggestions on input
   searchInput.addEventListener('input', function() {
     const query = this.value.toLowerCase().trim();
 
-    // Hide pagination when searching
-    if (pagination) {
-      pagination.style.display = query ? 'none' : '';
+    if (query === '') {
+      hideSuggestions();
+      return;
     }
 
-    archiveItems.forEach(item => {
-      const title = item.querySelector('.archive-title')?.textContent.toLowerCase() || '';
-      const excerpt = item.querySelector('.archive-excerpt')?.textContent.toLowerCase() || '';
-
-      const searchText = `${title} ${excerpt}`;
-
-      if (query === '' || searchText.includes(query)) {
-        item.style.display = '';
-      } else {
-        item.style.display = 'none';
-      }
+    const results = allPosts.filter(post => {
+      const searchText = `${post.title} ${post.description}`.toLowerCase();
+      return searchText.includes(query);
     });
+
+    showSuggestions(results);
   });
+
+  // Keyboard navigation
+  searchInput.addEventListener('keydown', function(e) {
+    const items = suggestions.querySelectorAll('.search-suggestion-item:not(.no-results)');
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      updateSelection(selectedIndex + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      updateSelection(selectedIndex - 1);
+    } else if (e.key === 'Enter' && selectedIndex >= 0 && items[selectedIndex]) {
+      e.preventDefault();
+      window.location.href = items[selectedIndex].href;
+    } else if (e.key === 'Escape') {
+      hideSuggestions();
+      this.blur();
+    }
+  });
+
+  // Click on suggestion
+  suggestions.addEventListener('click', function(e) {
+    const item = e.target.closest('.search-suggestion-item');
+    if (item && item.href) {
+      window.location.href = item.href;
+    }
+  });
+
+  // Dynamic arrow sizing
+  const arrowSvg = document.getElementById('archive-arrow-svg');
+  const arrowLine = arrowSvg?.querySelector('.arrow-line');
+  const arrowHead = arrowSvg?.querySelector('.arrow-head');
+  let hasAnimated = false;
+
+  function updateArrowSize() {
+    if (!arrowSvg) return;
+
+    const arrowContainer = arrowSvg.parentElement;
+    const containerRect = arrowContainer.getBoundingClientRect();
+    const distanceToBottom = window.innerHeight - containerRect.top - 20;
+
+    const minHeight = 150;
+    const arrowHeight = Math.max(minHeight, distanceToBottom);
+
+    const viewBoxHeight = arrowHeight * (120 / 192);
+    arrowSvg.setAttribute('height', arrowHeight);
+    arrowSvg.setAttribute('viewBox', `0 0 50 ${viewBoxHeight}`);
+
+    const lineEndY = viewBoxHeight - 15;
+    const headY = viewBoxHeight - 5;
+    const headTopY = viewBoxHeight - 25;
+
+    const cp1y = viewBoxHeight * 0.25;
+    const cp2y = viewBoxHeight * 0.42;
+    const cp3y = viewBoxHeight * 0.67;
+    const cp4y = viewBoxHeight * 0.79;
+
+    arrowLine.setAttribute('d', `M25 5 C 28 ${cp1y}, 30 ${cp2y}, 27 ${cp3y} S 24 ${cp4y}, 25 ${lineEndY}`);
+    arrowHead.setAttribute('d', `M15 ${headTopY} L 25 ${headY} L 35 ${headTopY}`);
+
+    // Set up animation based on path lengths
+    const lineLength = arrowLine.getTotalLength();
+    const headLength = arrowHead.getTotalLength();
+
+    arrowLine.style.strokeDasharray = lineLength;
+    arrowHead.style.strokeDasharray = headLength;
+
+    if (!hasAnimated) {
+      // Initial state: hidden
+      arrowLine.style.strokeDashoffset = lineLength;
+      arrowHead.style.strokeDashoffset = headLength;
+
+      // Trigger animation after a brief delay
+      setTimeout(() => {
+        arrowLine.style.strokeDashoffset = 0;
+        setTimeout(() => {
+          arrowHead.style.strokeDashoffset = 0;
+        }, 600);
+      }, 300);
+
+      hasAnimated = true;
+    }
+  }
+
+  updateArrowSize();
+  window.addEventListener('resize', updateArrowSize);
 });
 </script>
