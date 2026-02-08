@@ -20,5 +20,8 @@ _site/
 .claude/
 claude.md
 
+# Reference files (skill.md's, style analyses)
+references/
+
 # Real articles (preview mode)
 _drafts/

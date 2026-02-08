@@ -168,12 +168,11 @@ document.addEventListener('DOMContentLoaded', function() {
   searchInput.addEventListener('blur', function() {
     setTimeout(() => {
       hideSuggestions();
-      if (!this.value) {
-        searchPlaceholder.classList.remove('hidden');
-        currentPromptIndex = 0;
-        searchPlaceholder.textContent = prompts[0];
-        startPlaceholderCycle();
-      }
+      this.value = '';
+      searchPlaceholder.classList.remove('hidden');
+      currentPromptIndex = 0;
+      searchPlaceholder.textContent = prompts[0];
+      startPlaceholderCycle();
     }, 150);
   });
 
