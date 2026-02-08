@@ -3,9 +3,9 @@
 // =============================================
 
 .archive-container {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 6rem 2rem 2rem;
+  padding: 4rem 2rem 2rem;
   font-family: var(--adriatic-font-sans);
   color: var(--adriatic-text);
   text-align: center;
@@ -18,10 +18,11 @@
 .archive-heading {
   font-family: var(--adriatic-font-display);
   font-style: normal;
-  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 400;
+  letter-spacing: -0.02em;
   color: var(--adriatic-text);
-  line-height: 0.95;
+  line-height: 1.05;
   margin: 0;
 }
 
@@ -34,26 +35,15 @@
   font-family: var(--adriatic-font-display);
   font-style: italic;
   font-size: 2rem;
-  color: #1a1a1a;
-  margin-top: 6rem;
-}
-
-.archive-arrow {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  color: #1a1a1a;
-
-  .arrow-line,
-  .arrow-head {
-    transition: stroke-dashoffset 0.8s ease-out;
-  }
+  color: var(--adriatic-text);
+  margin-top: 3rem;
 }
 
 .archive-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 3rem 0 0;
+  text-align: left;
   transition: opacity 0.6s ease;
 
   &.search-focused {
@@ -71,13 +61,13 @@
 
 .archive-item {
   padding: 1.5rem 0;
-  border-bottom: 1px solid var(--adriatic-border);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
   a {
     text-decoration: none;
     color: inherit;
     display: block;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.15s ease;
   }
 
   &.no-results {
@@ -89,15 +79,17 @@
 
 .archive-date {
   font-family: var(--adriatic-font-sans);
-  font-size: 0.875rem;
-  color: var(--adriatic-text-muted);
+  font-size: 12px;
+  font-weight: 450;
+  color: var(--adriatic-text-secondary);
   margin-bottom: 0.5rem;
 }
 
 .archive-title {
-  font-family: var(--adriatic-font-sans);
+  font-family: var(--adriatic-font-display);
   font-size: 1.5rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--adriatic-text);
   line-height: 1.3;
   margin: 0.5rem 0;
@@ -119,7 +111,7 @@
   gap: 2rem;
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 1px solid var(--adriatic-border);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .pagination-link {
@@ -127,7 +119,7 @@
   font-size: 0.875rem;
   color: var(--adriatic-text);
   text-decoration: none;
-  transition: opacity 0.2s;
+  transition: opacity 0.15s ease;
 
   &:hover:not(.disabled) {
     opacity: 0.7;
@@ -156,7 +148,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s;
+  transition: opacity 0.15s ease;
 
   &:hover {
     opacity: 0.7;

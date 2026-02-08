@@ -50,7 +50,7 @@
 
 // Edition Details
 .edition-details {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.15s ease;
 }
 
 .edition-title {
@@ -60,7 +60,7 @@
   color: var(--adriatic-text);
 
   strong {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 
@@ -114,7 +114,7 @@
   box-shadow: var(--shadow-xl);
 
   span {
-    font-family: var(--adriatic-font-body);
+    font-family: var(--adriatic-font-display);
     font-size: 1.25rem;
     color: var(--adriatic-text-muted);
   }
@@ -132,7 +132,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.15s ease;
   flex-shrink: 0;
 
   &:hover {

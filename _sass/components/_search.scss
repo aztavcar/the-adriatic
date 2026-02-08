@@ -1,5 +1,5 @@
 // =============================================
-//   Search Bar - Frosted Glass Effect
+//   Search Bar
 // =============================================
 
 .archive-search {
@@ -10,11 +10,11 @@
   position: relative;
   width: 280px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: #fff;
   padding: 4px;
-  box-shadow: 0 20px 45px 0 rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(32.5px);
-  transition: width 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 
   &:focus-within {
     width: 400px;
@@ -29,16 +29,15 @@
 
 .search-input-group {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.03);
   border-radius: 6px;
   display: flex;
   align-items: center;
-  box-shadow: 0 20px 45px 0 rgba(0, 0, 0, 0.3);
-  padding: 16px 12px 16px 19px;
-  gap: 14px;
+  padding: 12px 12px 12px 16px;
+  gap: 12px;
 
   svg {
-    color: #eceadd;
+    color: rgba(0, 0, 0, 0.35);
     flex-shrink: 0;
     width: 16px;
     height: 16px;
@@ -56,8 +55,8 @@
     border: none;
     background: transparent;
     outline: none;
-    color: #eceadd;
-    font-size: 16px;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 14px;
     font-family: var(--adriatic-font-sans);
     letter-spacing: -0.0375px;
     position: relative;
@@ -72,23 +71,28 @@
   .search-placeholder {
     position: absolute;
     left: 0;
-    color: rgba(236, 234, 221, 0.6);
-    font-size: 16px;
+    color: rgba(0, 0, 0, 0.25);
+    font-size: 14px;
     font-family: var(--adriatic-font-sans);
+    font-style: italic;
     letter-spacing: -0.0375px;
     pointer-events: none;
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    filter: blur(0px);
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, filter 0.4s ease-in-out;
 
-    &.scroll-out {
+    &.slide-out {
       opacity: 0;
-      transform: translateY(-100%);
+      transform: translateY(-10px);
+      filter: blur(4px);
     }
 
-    &.scroll-in {
+    &.slide-in {
       opacity: 0;
-      transform: translateY(100%);
+      transform: translateY(10px);
+      filter: blur(4px);
+      transition: none;
     }
 
     &.hidden {
@@ -103,16 +107,16 @@
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 20px 45px 0 rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(32.5px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.06);
   max-height: 300px;
   overflow-y: auto;
   opacity: 0;
   transform: translateY(-8px);
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 100;
 
   &.is-open {
@@ -126,13 +130,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  color: #eceadd;
+  padding: 10px 16px;
+  color: rgba(0, 0, 0, 0.85);
   text-decoration: none;
   text-align: left;
   font-family: var(--adriatic-font-sans);
-  font-size: 14px;
-  border-bottom: 1px solid rgba(236, 234, 221, 0.1);
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   transition: background-color 0.15s ease;
 
   &:last-child {
@@ -141,11 +145,11 @@
 
   &:hover,
   &.is-selected {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.04);
   }
 
   &.no-results {
-    color: rgba(236, 234, 221, 0.5);
+    color: rgba(0, 0, 0, 0.4);
     justify-content: center;
     cursor: default;
 
@@ -164,7 +168,7 @@
 }
 
 .suggestion-date {
-  color: rgba(236, 234, 221, 0.5);
+  color: rgba(0, 0, 0, 0.4);
   font-size: 12px;
   flex-shrink: 0;
 }
@@ -173,20 +177,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1e1e1c;
-  color: #eceadd;
+  background-color: #111;
+  color: #fff;
   border: none;
   border-radius: 6px;
-  padding: 16px 40px;
-  font-size: 15px;
+  padding: 12px 32px;
+  font-size: 13px;
+  font-weight: 500;
   font-family: var(--adriatic-font-sans);
   letter-spacing: -0.0375px;
   cursor: pointer;
   text-decoration: none;
-  transition: background-color 0.2s ease;
-  box-shadow: 0 20px 45px 0 rgba(0, 0, 0, 0.3);
+  transition: background-color 0.15s ease;
 
   &:hover {
-    background-color: #2a2a28;
+    background-color: #333;
   }
 }

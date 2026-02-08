@@ -25,6 +25,7 @@ pagination:
               type="text"
               id="archive-search"
               placeholder=""
+              autocomplete="off"
               role="combobox"
               aria-autocomplete="list"
               aria-controls="search-suggestions"
@@ -41,14 +42,45 @@ pagination:
     </div>
   </section>
 
+  <!-- Article List -->
+  <ul class="archive-list">
+    {% for post in paginator.posts %}
+    <li class="archive-item">
+      <a href="{{ post.url | relative_url }}">
+        <div class="archive-date">{{ post.date | date: "%-d %B %Y" }}</div>
+        <h2 class="archive-title">{{ post.title }}</h2>
+        <p class="archive-excerpt">{{ post.description | default: post.excerpt | strip_html | truncate: 160 }}</p>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if paginator.total_pages > 1 %}
+  <nav class="archive-pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-link">&larr; Newer</a>
+    {% else %}
+      <span class="pagination-link disabled">&larr; Newer</span>
+    {% endif %}
+    <div class="pagination-numbers">
+      {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+          <span class="pagination-number active">{{ page }}</span>
+        {% else %}
+          <a href="{% if page == 1 %}{{ '/archive/' | relative_url }}{% else %}{{ '/archive/page/' | append: page | append: '/' | relative_url }}{% endif %}" class="pagination-number">{{ page }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-link">Older &rarr;</a>
+    {% else %}
+      <span class="pagination-link disabled">Older &rarr;</span>
+    {% endif %}
+  </nav>
+  {% endif %}
+
   <p class="archive-subtext">...with more to come.</p>
 
-  <div class="archive-arrow">
-    <svg id="archive-arrow-svg" width="80" viewBox="0 0 50 120" preserveAspectRatio="xMidYMin meet" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path class="arrow-line" d="M25 5 C 28 30, 30 50, 27 80 S 24 95, 25 105" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
-      <path class="arrow-head" d="M15 95 L 25 115 L 35 95" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    </svg>
-  </div>
 </div>
 
 <script>
@@ -62,28 +94,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Placeholder prompts
   const prompts = [
-    'Try "politics"',
-    'Try "business"',
-    'Try "living"',
-    'Try "culture"'
+    'Search the archive',
+    'the Western Balkans',
+    'essays on culture',
+    'a slower take',
+    'Ljubljana'
   ];
   let currentPromptIndex = 0;
 
-  // Cycle through placeholders with scroll animation
+  // Cycle through placeholders with slide + blur
   function cyclePlaceholder() {
     if (searchInput.value) return;
 
-    searchPlaceholder.classList.add('scroll-out');
+    searchPlaceholder.classList.add('slide-out');
 
     setTimeout(() => {
       currentPromptIndex = (currentPromptIndex + 1) % prompts.length;
       searchPlaceholder.textContent = prompts[currentPromptIndex];
-      searchPlaceholder.classList.remove('scroll-out');
-      searchPlaceholder.classList.add('scroll-in');
+      searchPlaceholder.classList.remove('slide-out');
+      searchPlaceholder.classList.add('slide-in');
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          searchPlaceholder.classList.remove('scroll-in');
+          searchPlaceholder.classList.remove('slide-in');
         });
       });
     }, 400);
@@ -186,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const results = allPosts.filter(post => {
-      const searchText = `${post.title} ${post.description}`.toLowerCase();
+      const searchText = `${post.title} ${post.description} ${post.category} ${post.category_display}`.toLowerCase();
       return searchText.includes(query);
     });
 
@@ -220,63 +253,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Dynamic arrow sizing
-  const arrowSvg = document.getElementById('archive-arrow-svg');
-  const arrowLine = arrowSvg?.querySelector('.arrow-line');
-  const arrowHead = arrowSvg?.querySelector('.arrow-head');
-  let hasAnimated = false;
-
-  function updateArrowSize() {
-    if (!arrowSvg) return;
-
-    const arrowContainer = arrowSvg.parentElement;
-    const containerRect = arrowContainer.getBoundingClientRect();
-    const distanceToBottom = window.innerHeight - containerRect.top - 20;
-
-    const minHeight = 150;
-    const arrowHeight = Math.max(minHeight, distanceToBottom);
-
-    const viewBoxHeight = arrowHeight * (120 / 192);
-    arrowSvg.setAttribute('height', arrowHeight);
-    arrowSvg.setAttribute('viewBox', `0 0 50 ${viewBoxHeight}`);
-
-    const lineEndY = viewBoxHeight - 15;
-    const headY = viewBoxHeight - 5;
-    const headTopY = viewBoxHeight - 25;
-
-    const cp1y = viewBoxHeight * 0.25;
-    const cp2y = viewBoxHeight * 0.42;
-    const cp3y = viewBoxHeight * 0.67;
-    const cp4y = viewBoxHeight * 0.79;
-
-    arrowLine.setAttribute('d', `M25 5 C 28 ${cp1y}, 30 ${cp2y}, 27 ${cp3y} S 24 ${cp4y}, 25 ${lineEndY}`);
-    arrowHead.setAttribute('d', `M15 ${headTopY} L 25 ${headY} L 35 ${headTopY}`);
-
-    // Set up animation based on path lengths
-    const lineLength = arrowLine.getTotalLength();
-    const headLength = arrowHead.getTotalLength();
-
-    arrowLine.style.strokeDasharray = lineLength;
-    arrowHead.style.strokeDasharray = headLength;
-
-    if (!hasAnimated) {
-      // Initial state: hidden
-      arrowLine.style.strokeDashoffset = lineLength;
-      arrowHead.style.strokeDashoffset = headLength;
-
-      // Trigger animation after a brief delay
-      setTimeout(() => {
-        arrowLine.style.strokeDashoffset = 0;
-        setTimeout(() => {
-          arrowHead.style.strokeDashoffset = 0;
-        }, 600);
-      }, 300);
-
-      hasAnimated = true;
-    }
-  }
-
-  updateArrowSize();
-  window.addEventListener('resize', updateArrowSize);
 });
 </script>

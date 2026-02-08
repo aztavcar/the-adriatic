@@ -54,7 +54,7 @@
       <div class="nav-links">
         <a href="{{ '/about' | relative_url }}"{% if page.url == '/about/' %} class="active"{% endif %}>About</a>
         <a href="{{ '/mag' | relative_url }}"{% if page.url == '/mag/' %} class="active"{% endif %}>Magazine</a>
-        <a href="{{ '/archive' | relative_url }}"{% if page.url == '/archive/' %} class="active"{% endif %}>Archive</a>
+        <a href="{{ '/archive' | relative_url }}"{% if page.url contains '/archive' %} class="active"{% endif %}>Archive</a>
       </div>
       <div class="nav-right">
         <a href="{{ '/newsletter' | relative_url }}" class="subscribe-btn">
@@ -93,7 +93,7 @@
     <nav class="mobile-menu-nav">
       <a href="{{ '/about' | relative_url }}"{% if page.url == '/about/' %} class="active"{% endif %}>About</a>
       <a href="{{ '/mag' | relative_url }}"{% if page.url == '/mag/' %} class="active"{% endif %}>Magazine</a>
-      <a href="{{ '/archive' | relative_url }}"{% if page.url == '/archive/' %} class="active"{% endif %}>Archive</a>
+      <a href="{{ '/archive' | relative_url }}"{% if page.url contains '/archive' %} class="active"{% endif %}>Archive</a>
     </nav>
     <div class="mobile-menu-logo">
       <span>THE</span>
