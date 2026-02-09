@@ -105,6 +105,136 @@
 }
 
 // =============================================
+//   Contribute CTA
+// =============================================
+
+.contribute-cta {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
+
+  h2 {
+    text-align: left;
+    margin: 0 0 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: rgba(0, 0, 0, 0.65);
+    margin-bottom: 0.75rem;
+
+    &:last-of-type {
+      margin-bottom: 1.25rem;
+    }
+  }
+}
+
+.contribute-action {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.contribute-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #fff;
+  background: #111;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+
+  &:hover {
+    background: #333;
+  }
+
+  .btn-label {
+    position: relative;
+    display: inline-block;
+  }
+
+  .label-default, .label-copied {
+    transition: opacity 0.2s ease;
+  }
+
+  .label-default {
+    opacity: 1;
+  }
+
+  .label-copied {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    white-space: nowrap;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  .icon-copy, .icon-check {
+    transform-origin: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .icon-copy {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .icon-check {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  &.copied {
+    background: #16a34a;
+
+    &:hover {
+      background: #16a34a;
+    }
+
+    .label-default {
+      opacity: 0;
+    }
+
+    .label-copied {
+      opacity: 1;
+    }
+
+    .icon-copy {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    .icon-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+.contribute-note {
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.4);
+  line-height: 1.4;
+}
+
+// =============================================
 //   About Page Responsive
 // =============================================
 
@@ -160,5 +290,15 @@
     p, em {
       font-size: 0.8125rem;
     }
+  }
+
+  .contribute-cta {
+    padding: 1.25rem;
+  }
+
+  .contribute-action {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
   }
 }

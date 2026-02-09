@@ -88,40 +88,50 @@
       opacity: 0.9;
     }
 
-    .envelope-icon {
+    .subscribe-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      flex-shrink: 0;
+    }
+
+    .arrow-mask {
+      overflow: hidden;
+      width: 7px;
+      height: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      width: 16px;
-      height: 16px;
     }
 
-    .envelope-closed,
-    .envelope-open {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      transition: none;
+    .arrow-clip {
+      overflow: hidden;
+      width: 7px;
+      height: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .envelope-closed {
-      opacity: 1;
+    .arrow-clip svg {
+      flex-shrink: 0;
     }
 
-    .envelope-open {
-      opacity: 0;
-    }
-
-    &:hover .envelope-closed {
-      opacity: 0;
-    }
-
-    &:hover .envelope-open {
-      opacity: 1;
+    &:hover .arrow-clip svg {
+      animation: slideOut 0.8s linear infinite;
     }
   }
+}
+
+@keyframes slideOut {
+  0%   { opacity: 1; transform: translate(0px); }
+  45%  { opacity: 0; transform: translate(100%); }
+  46%  { opacity: 0; transform: translate(-100%); }
+  100% { opacity: 1; transform: translate(0px); }
 }
 
 // Firefox fallback

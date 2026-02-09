@@ -17,6 +17,10 @@ a.featured-hero-container {
   cursor: pointer;
   align-items: start;
 
+  &:hover .featured-headline {
+    color: var(--adriatic-accent);
+  }
+
   @media (min-width: 1024px) {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
@@ -57,11 +61,12 @@ a.featured-hero-container {
 .featured-headline {
   font-family: var(--adriatic-font-display);
   font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--adriatic-text);
   margin: 0 0 1rem;
+  transition: color 0.15s;
 }
 
 .featured-deck {

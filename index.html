@@ -23,7 +23,7 @@ title: The Adriatic
 <!-- Featured Article -->
 {% assign featured = site.posts | where_exp: "post", "post.hidden != true" | first %}
 {% if featured %}
-  {% if featured.layout_type == "feature" %}
+  {% if featured.layout_type != "standard" %}
   <!-- Feature Hero - Magazine-style layout for longform/profiles -->
   <section class="feature-hero">
     <a href="{{ featured.url | relative_url }}" class="feature-hero-container">

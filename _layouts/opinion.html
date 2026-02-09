@@ -110,39 +110,41 @@ layout: default
     Back to homepage
   </a>
   <button class="copy-link-btn" id="copyLinkBtn" data-url="{{ page.url | absolute_url }}">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6" />
-    </svg>
     <span class="copy-text">Copy link</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <g class="icon-copy">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6" />
+      </g>
+      <g class="icon-check">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </g>
+    </svg>
   </button>
 </footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Copy link button
-  const copyBtn = document.getElementById('copyLinkBtn');
+  var copyBtn = document.getElementById('copyLinkBtn');
   if (copyBtn) {
     copyBtn.addEventListener('click', function() {
-      const url = this.dataset.url || window.location.href;
-      const copyText = this.querySelector('.copy-text');
+      var btn = this;
+      var url = btn.dataset.url || window.location.href;
 
-      navigator.clipboard.writeText(url).then(function() {
-        copyText.textContent = 'Copied!';
+      function onCopied() {
+        btn.classList.add('copied');
         setTimeout(function() {
-          copyText.textContent = 'Copy link';
+          btn.classList.remove('copied');
         }, 2000);
-      }).catch(function() {
-        // Fallback for older browsers
-        const textarea = document.createElement('textarea');
+      }
+
+      navigator.clipboard.writeText(url).then(onCopied).catch(function() {
+        var textarea = document.createElement('textarea');
         textarea.value = url;
         document.body.appendChild(textarea);
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        copyText.textContent = 'Copied!';
-        setTimeout(function() {
-          copyText.textContent = 'Copy link';
-        }, 2000);
+        onCopied();
       });
     });
   }

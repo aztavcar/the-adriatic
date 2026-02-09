@@ -59,17 +59,14 @@
       <div class="nav-right">
         <a href="{{ '/newsletter' | relative_url }}" class="subscribe-btn">
           <span>Subscribe</span>
-          <span class="envelope-icon">
-            <!-- Closed envelope (default) - solid fill -->
-            <svg class="envelope-closed" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"/>
-              <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"/>
-            </svg>
-            <!-- Open envelope (hover) - solid fill -->
-            <svg class="envelope-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19.5 22.5a3 3 0 0 0 3-3v-8.174l-6.879 4.022 3.485 1.876a.75.75 0 1 1-.712 1.321l-5.683-3.06a1.5 1.5 0 0 0-1.422 0l-5.683 3.06a.75.75 0 0 1-.712-1.32l3.485-1.877L1.5 11.326V19.5a3 3 0 0 0 3 3h15Z"/>
-              <path d="M1.5 9.589v-.745a3 3 0 0 1 1.578-2.642l7.5-4.038a3 3 0 0 1 2.844 0l7.5 4.038A3 3 0 0 1 22.5 8.844v.745l-8.426 4.926a.75.75 0 0 1-.648 0L1.5 9.589Z"/>
-            </svg>
+          <span class="subscribe-arrow">
+            <span class="arrow-mask">
+              <span class="arrow-clip">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                </svg>
+              </span>
+            </span>
           </span>
         </a>
         <!-- Hamburger menu button (mobile only) -->
@@ -133,9 +130,17 @@
           <span class="footer-cta-tagline">Know someone who'd enjoy this?</span>
           <button class="footer-copy-btn" id="footerShareBtn" data-url="{{ '/newsletter' | absolute_url }}">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6" />
+              <g class="icon-copy">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6" />
+              </g>
+              <g class="icon-check">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </g>
             </svg>
-            <span class="copy-text">Copy link</span>
+            <span class="copy-text">
+              <span class="label-default">Copy link</span>
+              <span class="label-copied">Copied!</span>
+            </span>
           </button>
           <span class="footer-stamp">
             <img src="https://res.cloudinary.com/dvyhebi2q/image/upload/v1769288703/the-adriatic/site/tete-a-tete.png" alt="Share with a friend">
@@ -237,25 +242,22 @@
     const shareBtn = document.getElementById('footerShareBtn');
     if (shareBtn) {
       shareBtn.addEventListener('click', function() {
-        const url = this.dataset.url || window.location.href;
-        const copyText = this.querySelector('.copy-text');
-
-        function showCopiedMessage() {
-          copyText.textContent = 'Copied!';
+        var btn = this;
+        var url = btn.dataset.url || window.location.href;
+        function onCopied() {
+          btn.classList.add('copied');
           setTimeout(function() {
-            copyText.textContent = 'Copy link';
-          }, 2000);
+            btn.classList.remove('copied');
+          }, 5000);
         }
-
-        navigator.clipboard.writeText(url).then(showCopiedMessage).catch(function() {
-          // Fallback
-          const textarea = document.createElement('textarea');
+        navigator.clipboard.writeText(url).then(onCopied).catch(function() {
+          var textarea = document.createElement('textarea');
           textarea.value = url;
           document.body.appendChild(textarea);
           textarea.select();
           document.execCommand('copy');
           document.body.removeChild(textarea);
-          showCopiedMessage();
+          onCopied();
         });
       });
     }
@@ -263,33 +265,31 @@
     // Footer CTA box click handler (desktop - when button is hidden)
     const footerCtaBox = document.querySelector('.footer-cta-box[data-copy-url]');
     if (footerCtaBox) {
-      const glassCursorText = document.querySelector('.glass-cursor-text');
-      const originalText = footerCtaBox.getAttribute('data-glass-cursor');
+      const glassCursor = document.getElementById('glass-cursor');
 
       footerCtaBox.addEventListener('click', function(e) {
         // Don't trigger if clicking the button itself (mobile)
         if (e.target.closest('.footer-copy-btn')) return;
 
-        const url = this.dataset.copyUrl;
+        var url = this.dataset.copyUrl;
 
-        function showCopiedInCursor() {
-          if (glassCursorText) {
-            glassCursorText.innerHTML = 'Link copied! Now <span class="glass-cursor-highlight">send it their way.</span>';
-            // Reset after 5 seconds
+        function onCopied() {
+          if (glassCursor) {
+            glassCursor.classList.add('copied');
             setTimeout(function() {
-              glassCursorText.innerHTML = originalText;
+              glassCursor.classList.remove('copied');
             }, 5000);
           }
         }
 
-        navigator.clipboard.writeText(url).then(showCopiedInCursor).catch(function() {
-          const textarea = document.createElement('textarea');
+        navigator.clipboard.writeText(url).then(onCopied).catch(function() {
+          var textarea = document.createElement('textarea');
           textarea.value = url;
           document.body.appendChild(textarea);
           textarea.select();
           document.execCommand('copy');
           document.body.removeChild(textarea);
-          showCopiedInCursor();
+          onCopied();
         });
       });
     }

@@ -128,9 +128,74 @@
     border-color: var(--adriatic-text-muted);
   }
 
+  svg {
+    flex-shrink: 0;
+  }
+
+  .icon-copy, .icon-check {
+    transform-origin: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .icon-copy {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .icon-check {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
   .copy-text {
+    position: relative;
+    display: inline-block;
     min-width: 52px;
     text-align: left;
+  }
+
+  .label-default, .label-copied {
+    transition: opacity 0.2s ease;
+  }
+
+  .label-default {
+    opacity: 1;
+  }
+
+  .label-copied {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    white-space: nowrap;
+  }
+
+  &.copied {
+    color: #16a34a;
+    border-color: #16a34a;
+
+    &:hover {
+      color: #16a34a;
+      border-color: #16a34a;
+    }
+
+    .icon-copy {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    .icon-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .label-default {
+      opacity: 0;
+    }
+
+    .label-copied {
+      opacity: 1;
+    }
   }
 
   // Hide on desktop - glass cursor handles the interaction
