@@ -183,23 +183,11 @@
     max-width: 100%;
   }
 
-  // Post page mobile
-  .post-header,
-  .post-content,
-  .post-hero-image,
-  .post-image-caption,
-  .post-footer {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
   .post-lede {
     font-size: 1rem;
   }
 
   .post-content {
-    font-size: 1rem;
-
     h2 {
       font-size: 1.5rem;
     }
@@ -218,84 +206,14 @@
   .share-links {
     flex-wrap: wrap;
   }
-
-  // About page mobile
-  .about-container {
-    padding: 2rem 1.5rem 3rem;
-  }
-
-  // Mag page mobile
-  .mag-container {
-    padding: 2rem 1.5rem 3rem;
-  }
-
-  .mag-content-wrapper {
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .mag-left-section {
-    max-width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .mag-intro {
-    margin-bottom: 1.5rem;
-  }
-
-  .carousel-container {
-    gap: 1.5rem;
-  }
-
-  .carousel-track-container {
-    max-width: 100%;
-  }
-
-  .carousel-arrow svg {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-
-  .cover-placeholder {
-    max-width: 350px;
-  }
-
-  // Archive page mobile
-  .archive-container {
-    padding: 2rem 1.5rem 3rem;
-  }
-
-  .archive-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .archive-item {
-    padding: 1.25rem 0;
-  }
-
-  .archive-title {
-    font-size: 1.25rem;
-  }
-
-  .archive-date,
-  .archive-excerpt {
-    font-size: 0.8125rem;
-  }
-
-  .archive-pagination {
-    gap: 1rem;
-    margin-top: 3rem;
-  }
-
-  .pagination-link,
-  .pagination-number {
-    font-size: 0.8125rem;
-  }
 }
 
 // Extra small screens (480px)
 @media (max-width: 480px) {
+  .adriatic-grid {
+    grid-template-columns: 1fr;
+  }
+
   a.featured-hero-container {
     grid-template-rows: 60vh;
     grid-template-rows: 60dvh;

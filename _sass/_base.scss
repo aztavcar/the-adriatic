@@ -16,6 +16,11 @@
   }
 }
 
+// Reset browser default margin
+body {
+  margin: 0;
+}
+
 // Body styles
 body.adriatic-page {
   background: var(--adriatic-bg);

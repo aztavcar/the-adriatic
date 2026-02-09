@@ -5,7 +5,7 @@
 .archive-container {
   max-width: 700px;
   margin: 0 auto;
-  padding: 4rem 2rem 2rem;
+  padding: 4rem clamp(1rem, 0.5rem + 2.5vw, 2rem) 2rem;
   font-family: var(--adriatic-font-sans);
   color: var(--adriatic-text);
   text-align: center;
@@ -170,17 +170,11 @@
 //   Archive Page Responsive
 // =============================================
 
-// Tablet (1024px)
-@media (max-width: 1024px) {
-  .archive-container {
-    padding: 3rem 1.5rem;
-  }
-}
-
 // Mobile (768px)
 @media (max-width: 768px) {
   .archive-container {
-    padding: 2rem 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
   }
 
   .archive-header {
@@ -214,7 +208,8 @@
 // Extra small (480px)
 @media (max-width: 480px) {
   .archive-container {
-    padding: 1.5rem 1rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
   }
 
   .archive-title {

@@ -5,7 +5,7 @@
 .post-header {
   max-width: 600px;
   margin: 0 auto 2rem;
-  padding: 2rem 2rem 0;
+  padding: 2rem 0 0;
 }
 
 .post-category {
@@ -23,7 +23,7 @@
 
 .post-title {
   font-family: var(--adriatic-font-display);
-  font-size: clamp(2rem, 3.5vw + 0.5rem, 4rem);
+  font-size: clamp(2.5rem, 4vw + 0.5rem, 4.5rem);
   font-weight: 400;
   font-style: normal;
   line-height: 0.9;
@@ -35,9 +35,9 @@
 
 .post-deck {
   font-family: var(--adriatic-font-sans);
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.5;
   color: var(--adriatic-text-muted);
   margin-top: 0;
   margin-bottom: 1.5rem;
@@ -73,7 +73,7 @@
 .post-hero-image {
   max-width: 900px;
   margin: 0 auto 0.5rem;
-  padding: 0 2rem;
+  padding: 0;
 
   img {
     width: 100%;
@@ -85,7 +85,7 @@
 .post-image-caption {
   max-width: 720px;
   margin: 0 auto 1.33rem;
-  padding: 0 2rem;
+  padding: 0;
   font-family: var(--adriatic-font-sans);
   font-size: 0.8rem;
   color: var(--adriatic-text-muted);
@@ -99,7 +99,7 @@
 .post-content {
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 2rem 2rem;
+  padding: 0 0 2rem;
   font-family: var(--adriatic-font-body);
   font-size: 1.25rem;
   line-height: 1.5;
@@ -214,7 +214,7 @@
 .author-bio {
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 2rem 2rem;
+  padding: 0 0 2rem;
 }
 
 .author-bio-text {
@@ -232,7 +232,7 @@
 .related-articles {
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 2rem 3rem;
+  padding: 0 0 3rem;
 
   &::before {
     content: '';
@@ -281,7 +281,7 @@
 .post-footer {
   max-width: 600px;
   margin: 0 auto;
-  padding: 2rem 2rem;
+  padding: 2rem 0;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
   justify-content: space-between;

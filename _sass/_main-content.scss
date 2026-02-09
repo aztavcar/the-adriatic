@@ -10,4 +10,8 @@
   min-height: 100vh;
   min-height: 100dvh;
   animation: fadeInUp 0.5s ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
