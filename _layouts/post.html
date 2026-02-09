@@ -33,9 +33,7 @@ layout: default
 
 <!-- Post Header -->
 <header class="post-header">
-  <div class="post-category">
-    <span class="category-tag">{% if page.kicker %}{{ page.kicker }}{% elsif page.category_display %}{{ page.category_display }}{% else %}{{ page.category | capitalize }}{% endif %}</span>
-  </div>
+  <span class="post-date">{{ page.date | date: "%-d %B %Y" }}</span>
   <h1 class="post-title">{{ page.title }}</h1>
 
   {% if page.description %}
@@ -49,7 +47,6 @@ layout: default
   <div class="post-meta">
     <div class="post-meta-left">
       {% if page.author %}<span class="post-byline">By <span class="post-byline-name">{{ page.author }}</span></span>{% endif %}
-      <span class="post-date">{{ page.date | date: "%-d %B %Y" }}</span>
     </div>
     <button class="copy-link-btn" id="copyLinkBtn" data-url="{{ page.url | absolute_url }}">
       <span class="copy-text">Copy link</span>
