@@ -168,6 +168,14 @@
     }
   }
 
+  // Social media handles
+  .social-handle {
+    font-family: var(--adriatic-font-sans);
+    font-size: 0.875rem;
+    color: var(--adriatic-accent);
+    font-weight: 400;
+  }
+
   // Inline images
   img {
     max-width: 100%;
