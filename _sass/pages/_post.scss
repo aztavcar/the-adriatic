@@ -109,31 +109,21 @@
   margin: 0 auto;
   padding: 0 0 2rem;
   font-family: var(--adriatic-font-body);
-  font-size: 1.25rem;
-  line-height: 1.5;
+  font-size: 1.5rem;
+  line-height: 1.25;
   color: var(--adriatic-text);
 
   p {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
   h2 {
     font-family: var(--adriatic-font-display);
     font-size: 1.75rem;
     font-weight: 600;
-    margin: 2.5rem 0 1rem;
+    margin: 2.5rem 0 0.5rem;
     color: var(--adriatic-text);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    &::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(0, 0, 0, 0.06);
-    }
   }
 
   h3 {
@@ -171,7 +161,7 @@
   // Social media handles
   .social-handle {
     font-family: var(--adriatic-font-sans);
-    font-size: 0.875rem;
+    font-size: 1.125rem;
     color: var(--adriatic-accent);
     font-weight: 400;
   }
