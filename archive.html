@@ -134,16 +134,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function escapeHTML(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
   function showSuggestions(results) {
     if (results.length === 0) {
       suggestions.innerHTML = '<div class="search-suggestion-item no-results">No articles found</div>';
     } else {
-      suggestions.innerHTML = results.map((post, index) => `
-        <a href="${post.url}" class="search-suggestion-item" role="option" data-index="${index}">
-          <span class="suggestion-title">${post.title}</span>
-          <span class="suggestion-date">${post.date}</span>
-        </a>
-      `).join('');
+      suggestions.innerHTML = results.map(function(post, index) {
+        return '<a href="' + escapeHTML(post.url) + '" class="search-suggestion-item" role="option" data-index="' + index + '">'
+          + '<span class="suggestion-title">' + escapeHTML(post.title) + '</span>'
+          + '<span class="suggestion-date">' + escapeHTML(post.date) + '</span>'
+          + '</a>';
+      }).join('');
     }
     suggestions.classList.add('is-open');
     searchInput.setAttribute('aria-expanded', 'true');

@@ -90,7 +90,8 @@ permalink: /mag/
 
     // Wait for fade out, then update content and fade in
     setTimeout(() => {
-      editionDetails.querySelector('.edition-title').innerHTML = `<strong>${currentTitle}</strong>`;
+      var titleEl = editionDetails.querySelector('.edition-title strong') || editionDetails.querySelector('.edition-title');
+      titleEl.textContent = currentTitle;
       editionDetails.querySelector('.edition-description').textContent = currentDescription;
       editionDetails.style.opacity = '1';
     }, 300);
