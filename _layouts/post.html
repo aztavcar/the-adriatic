@@ -48,17 +48,25 @@ layout: default
     <div class="post-meta-left">
       {% if page.author %}<span class="post-byline">By <span class="post-byline-name">{{ page.author }}</span></span>{% endif %}
     </div>
-    <button class="copy-link-btn" id="copyLinkBtn" data-url="{{ page.url | absolute_url }}">
-      <span class="copy-text">Copy link</span>
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <g class="icon-copy">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6" />
-        </g>
-        <g class="icon-check">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </g>
-      </svg>
-    </button>
+    <div class="post-meta-actions">
+      <button class="like-btn" id="likeBtn" data-slug="{{ page.url | slugify }}">
+        <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.995 7.233C10.545 5.61 8.128 5.173 6.312 6.66 4.496 8.146 4.24 10.631 5.667 12.389L11.995 18.25l6.328-5.861C19.75 10.631 19.525 8.13 17.678 6.66 15.83 5.189 13.445 5.61 11.995 7.233Z"/>
+        </svg>
+        <span class="like-count">0</span>
+      </button>
+      <button class="copy-link-btn" id="copyLinkBtn" data-url="{{ page.url | absolute_url }}">
+        <span class="copy-text">Copy link</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <g class="icon-copy">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6" />
+          </g>
+          <g class="icon-check">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </g>
+        </svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -133,7 +141,12 @@ layout: default
 </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
+  // ── Config ──
+  // Change this URL once your Cloudflare Worker is deployed
+  var LIKES_API = 'https://adriatic-likes.aztavcar.workers.dev';
+
+  // ── Copy button ──
   var copyBtn = document.getElementById('copyLinkBtn');
   if (copyBtn) {
     copyBtn.addEventListener('click', function() {
@@ -141,7 +154,14 @@ document.addEventListener('DOMContentLoaded', function() {
       var url = btn.dataset.url || window.location.href;
 
       function onCopied() {
-        btn.classList.add('copied');
+        if (navigator.vibrate) navigator.vibrate(10);
+        btn.classList.remove('copied', 'flash-peak');
+        void btn.offsetWidth;
+        btn.classList.add('flash-peak');
+        setTimeout(function() {
+          btn.classList.remove('flash-peak');
+          btn.classList.add('copied');
+        }, 100);
         setTimeout(function() {
           btn.classList.remove('copied');
         }, 2000);
@@ -158,5 +178,102 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
-});
+
+  // ── Like button ──
+  var likeBtn = document.getElementById('likeBtn');
+  if (likeBtn) {
+    var slug = likeBtn.dataset.slug;
+    var countEl = likeBtn.querySelector('.like-count');
+    var storageKey = 'likes:' + slug;
+    var countKey = 'likes-count:' + slug;
+    var liked = localStorage.getItem(storageKey) === '1';
+    var count = parseInt(localStorage.getItem(countKey)) || 0;
+
+    // Restore from localStorage immediately
+    if (liked) likeBtn.classList.add('liked');
+    if (count > 0) countEl.textContent = count;
+
+    // Fetch real count from API (if configured)
+    if (LIKES_API) {
+      fetch(LIKES_API + '/api/likes/' + encodeURIComponent(slug))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          count = data.count || 0;
+          countEl.textContent = count;
+          localStorage.setItem(countKey, count);
+          if (data.liked) {
+            liked = true;
+            likeBtn.classList.add('liked');
+            localStorage.setItem(storageKey, '1');
+          }
+        })
+        .catch(function() {});
+    }
+
+    var streak = 0;
+    var streakTimer = null;
+    var coolingDown = false;
+
+    likeBtn.addEventListener('click', function() {
+      // Block clicks during cooldown
+      if (coolingDown) return;
+
+      // Track consecutive clicks
+      streak++;
+      clearTimeout(streakTimer);
+      streakTimer = setTimeout(function() { streak = 0; }, 1500);
+
+      // Hit the limit — shake and cooldown
+      if (streak >= 5) {
+        likeBtn.classList.remove('like-press');
+        void likeBtn.offsetWidth;
+        likeBtn.classList.add('like-shake');
+        if (navigator.vibrate) navigator.vibrate([30, 50, 30, 50, 30]);
+        setTimeout(function() {
+          likeBtn.classList.remove('like-shake');
+          likeBtn.classList.add('like-cooldown');
+          coolingDown = true;
+        }, 500);
+        setTimeout(function() {
+          likeBtn.classList.remove('like-cooldown');
+          coolingDown = false;
+          streak = 0;
+        }, 5500);
+        return;
+      }
+
+      // Optimistic update
+      count++;
+      countEl.textContent = count;
+      liked = true;
+      localStorage.setItem(storageKey, '1');
+      localStorage.setItem(countKey, count);
+
+      // Re-trigger press animation
+      likeBtn.classList.remove('like-press');
+      void likeBtn.offsetWidth;
+      likeBtn.classList.add('liked', 'like-press');
+
+      // Escalating haptic based on streak
+      if (navigator.vibrate) {
+        navigator.vibrate(streak <= 2 ? 10 : streak <= 4 ? 20 : 30);
+      }
+
+      // Clean up animation class
+      setTimeout(function() { likeBtn.classList.remove('like-press'); }, 400);
+
+      // POST to API (if configured)
+      if (LIKES_API) {
+        fetch(LIKES_API + '/api/likes/' + encodeURIComponent(slug), {
+          method: 'POST',
+        }).then(function(r) { return r.json(); })
+          .then(function(data) {
+            count = data.count || count;
+            countEl.textContent = count;
+          })
+          .catch(function() {});
+      }
+    });
+  }
+})();
 </script>

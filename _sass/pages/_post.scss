@@ -78,6 +78,12 @@
   color: var(--adriatic-text);
 }
 
+.post-meta-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .post-hero-image {
   max-width: 900px;
   margin: 0 auto 0.5rem;
@@ -338,12 +344,13 @@
   background: none;
   border: none;
   padding: 4px 8px;
+  border-radius: 4px;
   font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
   font-size: 0.6875rem;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  transition: color 0.15s;
+  transition: color 0.15s, background-color 0.4s ease;
 
   @media (hover: hover) {
     &:hover {
@@ -371,7 +378,19 @@
     transform: scale(0.8);
   }
 
+  // Flash peak: bright green + compress
+  &.flash-peak {
+    background-color: rgba(22, 163, 74, 0.22);
+    transform: scale(0.92);
+    transition: color 0.15s, background-color 0.05s, transform 0.08s ease-in;
+  }
+
+  // Copied: settle to soft tint + spring back
   &.copied {
+    color: #16a34a;
+    background-color: rgba(22, 163, 74, 0.08);
+    animation: copySpring 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
     .icon-copy {
       opacity: 0;
       transform: scale(0.8);
@@ -382,6 +401,123 @@
       transform: scale(1);
     }
   }
+}
+
+@keyframes copySpring {
+  0%   { transform: scale(0.92); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(0, 0, 0, 0.02);
+  border: none;
+  padding: 4px 10px 4px 8px;
+  border-radius: 100px;
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  transition: color 0.15s, background-color 0.15s, box-shadow 0.15s;
+  -webkit-user-select: none;
+  user-select: none;
+
+  @media (hover: hover) {
+    &:hover {
+      color: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  .heart-icon {
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.15s;
+  }
+
+  .like-count {
+    transition: color 0.15s;
+  }
+
+  &.liked {
+    color: var(--adriatic-accent);
+    background: rgba(189, 45, 45, 0.05);
+    box-shadow: inset 0 0 0 0.5px rgba(189, 45, 45, 0.15);
+
+    .heart-icon {
+      fill: currentColor;
+      stroke: currentColor;
+    }
+  }
+
+  // Scale bump on each press (re-triggered via JS)
+  &.like-press {
+    animation: likeBump 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    .heart-icon {
+      animation: heartPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  }
+
+  // Count number rolls up
+  .like-count {
+    transition: color 0.15s, transform 0.15s;
+  }
+  &.like-press .like-count {
+    animation: countBump 0.3s ease-out;
+  }
+
+  // Shake when hitting the cooldown limit
+  &.like-shake {
+    animation: likeShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  // Cooldown disabled state
+  &.like-cooldown {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+}
+
+@keyframes heartPop {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.4); }
+  60%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+@keyframes likeBump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.92); }
+  70%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+@keyframes countBump {
+  0%   { transform: translateY(0); opacity: 1; }
+  30%  { transform: translateY(-3px); opacity: 0.6; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes likeShake {
+  0%, 100% { transform: translateX(0); }
+  10%  { transform: translateX(-4px); }
+  20%  { transform: translateX(4px); }
+  30%  { transform: translateX(-3px); }
+  40%  { transform: translateX(3px); }
+  50%  { transform: translateX(-2px); }
+  60%  { transform: translateX(2px); }
+  70%  { transform: translateX(-1px); }
+  80%  { transform: translateX(1px); }
 }
 
 .back-link {

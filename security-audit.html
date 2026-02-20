@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Audit Report — The Adriatic</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: #fdfdfc; color: #1a1a1a; line-height: 1.6; padding: 2rem; max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 2rem; font-weight: 400; margin-bottom: 0.25rem; }
+    .subtitle { color: rgba(0,0,0,0.4); font-size: 0.875rem; margin-bottom: 2rem; }
+    h2 { font-size: 1.25rem; font-weight: 500; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    h3 { font-size: 1rem; font-weight: 500; margin: 1.5rem 0 0.75rem; }
+    p, li { font-size: 0.875rem; color: rgba(0,0,0,0.8); }
+    ul { padding-left: 1.25rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.35rem; }
+    code { font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace; font-size: 0.8125rem; background: rgba(0,0,0,0.04); padding: 0.15em 0.4em; border-radius: 3px; }
+    pre { background: #1a1a1a; color: #e0e0e0; padding: 1rem; border-radius: 6px; overflow-x: auto; margin: 0.75rem 0 1rem; font-size: 0.8125rem; line-height: 1.5; }
+    pre code { background: none; padding: 0; color: inherit; }
+    .added { color: #16a34a; }
+    .removed { color: #bd2d2d; }
+
+    /* Severity badges */
+    .badge { display: inline-block; font-size: 0.6875rem; font-weight: 600; padding: 2px 8px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.03em; font-family: 'SF Mono', monospace; }
+    .badge-critical { background: #bd2d2d; color: #fff; }
+    .badge-high { background: #e87722; color: #fff; }
+    .badge-medium { background: #d4a017; color: #fff; }
+    .badge-low { background: rgba(0,0,0,0.08); color: rgba(0,0,0,0.6); }
+    .badge-fixed { background: #16a34a; color: #fff; }
+    .badge-manual { background: #6366f1; color: #fff; }
+    .badge-ok { background: rgba(22,163,74,0.1); color: #16a34a; }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.8125rem; }
+    th { text-align: left; font-weight: 500; padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.1); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(0,0,0,0.5); }
+    td { padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.04); vertical-align: top; }
+    tr:hover td { background: rgba(0,0,0,0.015); }
+
+    /* Summary cards */
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .card { padding: 1rem; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px; text-align: center; }
+    .card-num { font-size: 2rem; font-weight: 300; }
+    .card-label { font-size: 0.6875rem; color: rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
+
+    /* Checklist */
+    .check { margin: 0.35rem 0; font-size: 0.875rem; }
+    .check::before { content: ''; display: inline-block; width: 16px; height: 16px; border-radius: 50%; margin-right: 0.5rem; vertical-align: -2px; }
+    .check-pass::before { background: #16a34a; content: ''; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 6px #16a34a; }
+    .check-fail::before { background: #bd2d2d; content: ''; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 6px #bd2d2d; }
+    .check-partial::before { background: #d4a017; content: ''; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 6px #d4a017; }
+    .check-na::before { background: rgba(0,0,0,0.1); content: ''; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 6px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+
+<h1>Security Audit Report</h1>
+<p class="subtitle">The Adriatic &mdash; February 20, 2026 &mdash; Audited by Claude Opus 4.6</p>
+
+<div class="summary">
+  <div class="card">
+    <div class="card-num">12</div>
+    <div class="card-label">Issues Found</div>
+  </div>
+  <div class="card">
+    <div class="card-num" style="color:#16a34a;">7</div>
+    <div class="card-label">Fixed</div>
+  </div>
+  <div class="card">
+    <div class="card-num" style="color:#6366f1;">3</div>
+    <div class="card-label">Manual Action</div>
+  </div>
+  <div class="card">
+    <div class="card-num" style="color:rgba(0,0,0,0.3);">2</div>
+    <div class="card-label">Accepted Risk</div>
+  </div>
+</div>
+
+<!-- ─── FINDINGS TABLE ─── -->
+<h2>All Findings</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Finding</th>
+      <th>Severity</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><code>CLAUDE.md</code> served in built output &mdash; leaks full project architecture, internal conventions, Worker URL</td>
+      <td><span class="badge badge-critical">Critical</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><code>README.md</code> served in built output &mdash; project documentation visible to visitors</td>
+      <td><span class="badge badge-high">High</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><code>docs/</code> folder served &mdash; design system references, editorial skills, brand typography</td>
+      <td><span class="badge badge-high">High</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><code>test-copy-animations.html</code> development page in built output</td>
+      <td><span class="badge badge-high">High</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>XSS via <code>innerHTML</code> in archive search &mdash; post titles from JSON injected unescaped</td>
+      <td><span class="badge badge-high">High</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><code>main.css.map</code> source map exposes SCSS file structure and variable names</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>No Content-Security-Policy or Referrer-Policy headers</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>No SRI hashes on external scripts (Google Fonts, Brevo, reCAPTCHA)</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td><span class="badge badge-manual">Manual</span></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><code>.wrangler/</code> cache directory not gitignored &mdash; contains Cloudflare account ID</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><code>innerHTML</code> in <code>external-links.js</code> figcaption processor</td>
+      <td><span class="badge badge-low">Low</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>No rate limiting on likes API &mdash; allows spam/abuse</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td><span class="badge badge-manual">Manual</span></td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><code>robots.txt</code> sitemap URL hardcoded to wrong domain</td>
+      <td><span class="badge badge-low">Low</span></td>
+      <td><span class="badge badge-fixed">Fixed</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ─── WHAT WAS FIXED ─── -->
+<h2>Remediation Details</h2>
+
+<h3>1. Excluded sensitive files from build <span class="badge badge-fixed">Fixed</span></h3>
+<p>Added to <code>_config.yml</code> exclude list to prevent Jekyll from copying internal documentation and dev artifacts into <code>_site/</code>.</p>
+<pre><code><span class="removed">  # Exclude from build
+  exclude:
+    - Gemfile
+    - Gemfile.lock
+    - node_modules
+    - vendor
+    - api</span>
+
+<span class="added">  # Exclude from build
+  exclude:
+    - Gemfile
+    - Gemfile.lock
+    - node_modules
+    - vendor
+    - api
+    - CLAUDE.md
+    - claude.md
+    - README.md
+    - docs
+    - references
+    - test-*.html</span></code></pre>
+<p>Also disabled CSS source map generation:</p>
+<pre><code><span class="added">  sass:
+    sass_dir: _sass
+    style: compressed
+    sourcemap: never</span></code></pre>
+
+<h3>2. Sanitized innerHTML XSS vectors <span class="badge badge-fixed">Fixed</span></h3>
+<p><strong>archive.html</strong> &mdash; Post titles and URLs from <code>search.json</code> were injected via template literals without escaping. Added <code>escapeHTML()</code> helper:</p>
+<pre><code><span class="removed">  suggestions.innerHTML = results.map((post, index) => `
+    &lt;a href="${post.url}" ...&gt;
+      &lt;span class="suggestion-title"&gt;${post.title}&lt;/span&gt;
+      &lt;span class="suggestion-date"&gt;${post.date}&lt;/span&gt;
+    &lt;/a&gt;
+  `).join('');</span>
+
+<span class="added">  function escapeHTML(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  suggestions.innerHTML = results.map(function(post, index) {
+    return '&lt;a href="' + escapeHTML(post.url) + '" ...&gt;'
+      + '&lt;span class="suggestion-title"&gt;' + escapeHTML(post.title) + '&lt;/span&gt;'
+      + '&lt;span class="suggestion-date"&gt;' + escapeHTML(post.date) + '&lt;/span&gt;'
+      + '&lt;/a&gt;';
+  }).join('');</span></code></pre>
+
+<p><strong>mag.html</strong> &mdash; Replaced <code>innerHTML</code> with <code>textContent</code> for carousel title updates.</p>
+
+<p><strong>external-links.js</strong> &mdash; Replaced <code>innerHTML</code> with DOM methods (<code>createElement</code>, <code>textContent</code>, <code>appendChild</code>) for figcaption credit splitting.</p>
+
+<h3>3. Added Content-Security-Policy <span class="badge badge-fixed">Fixed</span></h3>
+<p>Added CSP and Referrer-Policy via <code>&lt;meta&gt;</code> tags in <code>default.html</code> (GitHub Pages doesn't support HTTP headers):</p>
+<pre><code><span class="added">&lt;meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' https://www.google.com
+    https://www.gstatic.com https://sibforms.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com
+    https://sibforms.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' https://res.cloudinary.com https: data:;
+  connect-src 'self' https://adriatic-likes.aztavcar.workers.dev;
+  frame-src https://www.google.com https://sibforms.com;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self' https://sibforms.com"&gt;
+
+&lt;meta name="referrer" content="strict-origin-when-cross-origin"&gt;</span></code></pre>
+
+<p><strong>Limitation:</strong> CSP uses <code>'unsafe-inline'</code> for scripts because the site has 10+ inline <code>&lt;script&gt;</code> blocks. Moving these to external files with nonce-based CSP would require significant refactoring. The current CSP still provides value by restricting which domains can serve content.</p>
+
+<h3>4. Gitignored Wrangler cache <span class="badge badge-fixed">Fixed</span></h3>
+<p>Added <code>api/.wrangler/</code> to <code>.gitignore</code> to prevent Cloudflare account ID from being committed.</p>
+
+<h3>5. Fixed robots.txt <span class="badge badge-fixed">Fixed</span></h3>
+<p>Changed hardcoded <code>https://theadriatic.com/sitemap.xml</code> to use Jekyll Liquid variables so it stays correct across any hosting environment.</p>
+
+<!-- ─── MANUAL ACTION REQUIRED ─── -->
+<h2>Manual Action Required</h2>
+
+<h3>SRI Hashes <span class="badge badge-manual">Manual</span></h3>
+<p>External scripts lack Subresource Integrity hashes. However, all three external services (Google Fonts, Brevo, reCAPTCHA) serve <strong>dynamically generated</strong> content that changes per-browser or per-version, making SRI impractical. When you migrate to DigitalOcean App Platform with a reverse proxy, you could:</p>
+<ul>
+  <li>Self-host Google Fonts (download woff2 files, already partially done)</li>
+  <li>Add SRI hashes to any static CDN resources added in the future</li>
+  <li>Consider <code>require-sri-for</code> CSP directive when browser support improves</li>
+</ul>
+
+<h3>Rate Limiting on Likes API <span class="badge badge-manual">Manual</span></h3>
+<p>The <code>/api/likes/:slug</code> POST endpoint has no rate limiting. Anyone can spam it to inflate counts. Options:</p>
+<ul>
+  <li><strong>Cloudflare Rate Limiting</strong> (free tier: 1 rule) &mdash; add via Cloudflare dashboard under Security &gt; WAF &gt; Rate limiting rules</li>
+  <li><strong>Worker-level limiting</strong> &mdash; use Upstash Redis to track request count per IP hash with TTL-based windows</li>
+  <li>Given you <em>want</em> to inflate likes yourself, a generous limit (e.g., 60 requests/minute per IP) would block automated abuse while letting you click freely</li>
+</ul>
+
+<h3>Rotate Nothing <span class="badge badge-ok">OK</span></h3>
+<p>No secrets were found in the codebase or built output. All credentials (Upstash, Cloudflare, Brevo) are properly stored in environment variables. No key rotation needed.</p>
+
+<!-- ─── ACCEPTED RISKS ─── -->
+<h2>Accepted Risks</h2>
+
+<h3><code>innerHTML</code> in glass-cursor.html <span class="badge badge-low">Low</span></h3>
+<p>The glass cursor reads from <code>data-glass-cursor</code> attributes which intentionally contain HTML (<code>&lt;span class='glass-cursor-highlight'&gt;</code>). Since these attributes are hardcoded in templates by the developer (not user input), the risk is negligible. Switching to <code>textContent</code> would break the styled text.</p>
+
+<h3>CSP <code>'unsafe-inline'</code> for scripts <span class="badge badge-low">Low</span></h3>
+<p>The site has 10+ inline <code>&lt;script&gt;</code> blocks across layouts and includes. A strict nonce-based CSP would require extracting all scripts to external files and implementing a nonce injection system, which is a major refactor for a static site. The current CSP still prevents loading scripts from unauthorized domains.</p>
+
+<!-- ─── SECURITY HEADERS CHECKLIST ─── -->
+<h2>Security Headers Checklist</h2>
+
+<div class="check check-pass">Content-Security-Policy &mdash; added via <code>&lt;meta&gt;</code> tag (restricts script/style/font/image/connect sources)</div>
+<div class="check check-pass">Referrer-Policy &mdash; <code>strict-origin-when-cross-origin</code> via <code>&lt;meta&gt;</code> tag</div>
+<div class="check check-pass">X-Content-Type-Options &mdash; <code>nosniff</code> (set by GitHub Pages automatically)</div>
+<div class="check check-pass">Strict-Transport-Security &mdash; HSTS (set by GitHub Pages automatically)</div>
+<div class="check check-na">X-Frame-Options &mdash; cannot be set via <code>&lt;meta&gt;</code> tag; requires HTTP header (GitHub Pages limitation)</div>
+<div class="check check-na">Permissions-Policy &mdash; cannot be set via <code>&lt;meta&gt;</code> tag; requires HTTP header (GitHub Pages limitation)</div>
+<div class="check check-partial">CSP frame-ancestors &mdash; cannot be set via <code>&lt;meta&gt;</code> tag (X-Frame-Options unavailable, clickjacking partially unprotected)</div>
+
+<p style="margin-top: 1rem; font-size: 0.8125rem; color: rgba(0,0,0,0.5);">When you migrate to DigitalOcean App Platform, you can set all headers via server configuration (nginx, Caddy, or App Platform's header rules), including <code>X-Frame-Options: SAMEORIGIN</code>, <code>Permissions-Policy</code>, and CSP via HTTP header (which supports <code>frame-ancestors</code>).</p>
+
+<!-- ─── MONITORING ─── -->
+<h2>Ongoing Monitoring</h2>
+
+<ul>
+  <li><strong>CSP violations:</strong> When moving to App Platform, add <code>report-uri</code> or <code>report-to</code> directive to CSP to collect violation reports. Services like <a href="https://report-uri.com">report-uri.com</a> offer free tiers.</li>
+  <li><strong>Dependency audits:</strong> Run <code>bundle audit</code> periodically to check for vulnerable Ruby gems. Currently no <code>bundler-audit</code> gem installed &mdash; add it when convenient.</li>
+  <li><strong>Upstash Redis:</strong> Monitor usage in the Upstash dashboard. Watch for unusual spikes that could indicate abuse of the likes endpoint.</li>
+  <li><strong>Cloudflare analytics:</strong> Check Workers analytics for unusual traffic patterns (bot abuse, scraping).</li>
+  <li><strong>Build output:</strong> After adding new files to the repo, verify they don't appear in <code>_site/</code> if they're internal. The <code>exclude:</code> list in <code>_config.yml</code> is your gatekeeper.</li>
+  <li><strong>GitHub security alerts:</strong> Enable Dependabot alerts on the repository for automated vulnerability notifications.</li>
+</ul>
+
+<hr style="border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 2.5rem 0;">
+<p style="font-size: 0.75rem; color: rgba(0,0,0,0.3); text-align: center;">Generated by Claude Opus 4.6 &mdash; February 20, 2026</p>
+
+</body>
+</html>
