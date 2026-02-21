@@ -235,9 +235,13 @@ layout: default
           coolingDown = true;
         }, 500);
         setTimeout(function() {
+          likeBtn.classList.add('like-cooldown-recover');
           likeBtn.classList.remove('like-cooldown');
           coolingDown = false;
           streak = 0;
+          setTimeout(function() {
+            likeBtn.classList.remove('like-cooldown-recover');
+          }, 1200);
         }, 5500);
         return;
       }
