@@ -16,15 +16,11 @@ _site/
 # Logs
 *.log
 
-# Claude Code
+# Claude Code (local session data, per-machine)
 .claude/
-claude.md
 
 # Wrangler (Cloudflare Workers CLI cache)
 api/.wrangler/
-
-# Documentation (skills, style guides, design references)
-docs/
 
 # Real articles (preview mode)
 _drafts/

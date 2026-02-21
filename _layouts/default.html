@@ -264,10 +264,15 @@
         var btn = this;
         var url = btn.dataset.url || window.location.href;
         function onCopied() {
-          btn.classList.add('copied');
+          btn.classList.add('flash-peak');
+          if (navigator.vibrate) navigator.vibrate(10);
           setTimeout(function() {
-            btn.classList.remove('copied');
-          }, 5000);
+            btn.classList.remove('flash-peak');
+            btn.classList.add('copied');
+            setTimeout(function() {
+              btn.classList.remove('copied');
+            }, 5000);
+          }, 80);
         }
         navigator.clipboard.writeText(url).then(onCopied).catch(function() {
           var textarea = document.createElement('textarea');

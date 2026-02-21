@@ -125,16 +125,21 @@
 
 .view-more-btn {
   display: inline-block;
-  font-family: var(--adriatic-font-sans);
-  font-size: 0.875rem;
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+  font-size: 0.6875rem;
   text-decoration: none;
-  color: var(--adriatic-text-muted);
+  color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.025);
+  padding: 6px 14px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: opacity 0.15s ease;
+  transition: color 0.15s, background-color 0.15s;
 
   @media (hover: hover) {
     &:hover {
-      opacity: 0.5;
+      color: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.045);
     }
   }
 }

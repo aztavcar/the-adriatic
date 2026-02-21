@@ -114,21 +114,21 @@
   align-items: center;
   gap: 0.4rem;
   margin-top: 1rem;
-  background: none;
-  border: 1px solid var(--adriatic-border);
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.025);
+  border: none;
+  border-radius: 6px;
   padding: 0.625rem 0.875rem;
   min-height: 44px;
   font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
   font-size: 0.6875rem;
-  color: var(--adriatic-text-muted);
+  color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+  transition: color 0.15s, background-color 0.4s ease;
 
   @media (hover: hover) {
     &:hover {
-      color: var(--adriatic-text);
-      border-color: var(--adriatic-text-muted);
+      color: rgba(0, 0, 0, 0.7);
     }
   }
 
@@ -174,14 +174,18 @@
     white-space: nowrap;
   }
 
+  // Flash peak: bright green + compress
+  &.flash-peak {
+    background-color: rgba(22, 163, 74, 0.22);
+    transform: scale(0.92);
+    transition: color 0.15s, background-color 0.05s, transform 0.08s ease-in;
+  }
+
   &.copied {
     color: #16a34a;
-    border-color: #16a34a;
-
-    &:hover {
-      color: #16a34a;
-      border-color: #16a34a;
-    }
+    background-color: rgba(22, 163, 74, 0.08);
+    box-shadow: 0 0 0 0.5px rgba(22, 163, 74, 0.15);
+    animation: footerCopySpring 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 
     .icon-copy {
       opacity: 0;
@@ -206,6 +210,12 @@
   @media (hover: hover) {
     display: none;
   }
+}
+
+@keyframes footerCopySpring {
+  0%   { transform: scale(0.92); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
 }
 
 /* Footer Image */

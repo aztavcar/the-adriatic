@@ -1,0 +1,599 @@
+---
+layout: null
+title: Navbar Redesign
+permalink: /navbar-redesign/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Redesign — Agentation Style</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Adriatic22';
+      src: url('{{ "/assets/fonts/Adriatic22-Regular.woff2" | relative_url }}') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Adriatic Journal';
+      src: url('{{ "/assets/fonts/AdriaticJournal-Regular.woff2" | relative_url }}') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --adriatic-bg: #fdfdfc;
+      --adriatic-text: #1a1a1a;
+      --adriatic-accent: #bd2d2d;
+      --adriatic-border: #d4cfc7;
+      --navbar-height: 56px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--adriatic-bg);
+      color: var(--adriatic-text);
+      min-height: 200vh;
+    }
+
+    /* =========================================
+       Page intro
+       ========================================= */
+    .page-intro {
+      max-width: 600px;
+      margin: 6rem auto 3rem;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+    .page-intro h1 {
+      font-family: 'Adriatic22', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+    .page-intro p {
+      font-size: 0.875rem;
+      color: rgba(0,0,0,0.5);
+      line-height: 1.6;
+    }
+
+    /* =========================================
+       Comparison layout
+       ========================================= */
+    .comparison {
+      max-width: 900px;
+      margin: 0 auto 4rem;
+      padding: 0 1.5rem;
+    }
+    .comparison-label {
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.6875rem;
+      color: rgba(0,0,0,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+    .comparison-frame {
+      background: #f5f4f1;
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    /* =========================================
+       A. CURRENT — Glass morphism navbar
+       ========================================= */
+    .nav-current {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      backdrop-filter: blur(12px) saturate(150%);
+      -webkit-backdrop-filter: blur(12px) saturate(150%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.15));
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      box-shadow:
+        0 10px 15px -3px rgba(0,0,0,0.07),
+        0 4px 6px -2px rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        inset 0 -1px 0 rgba(0,0,0,0.03);
+    }
+    .nav-current a {
+      color: var(--adriatic-text);
+      font-size: 0.875rem;
+      font-weight: 450;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s ease;
+    }
+    @media (hover: hover) {
+      .nav-current a:hover { opacity: 0.6; }
+    }
+    .nav-current .home-icon {
+      display: flex;
+      align-items: center;
+    }
+    .nav-current .nav-links-c {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-current .nav-right-c {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+    .nav-current .subscribe-btn-c {
+      background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,0.07), 0 1px 2px 0 rgba(0,0,0,0.05);
+      transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+    @media (hover: hover) {
+      .nav-current .subscribe-btn-c:hover {
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.05);
+        opacity: 0.9;
+      }
+    }
+
+    /* =========================================
+       B. REDESIGN — Agentation navbar
+       ========================================= */
+    .nav-new {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 0.5rem 0.625rem 0.5rem 0.75rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      border: none;
+      border-radius: 10px;
+      box-shadow:
+        0 0 0 0.5px rgba(0, 0, 0, 0.06),
+        0 2px 8px -2px rgba(0, 0, 0, 0.08),
+        0 6px 20px -4px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-new a {
+      color: rgba(0, 0, 0, 0.45);
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.6875rem;
+      font-weight: 400;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new a:hover {
+        color: rgba(0, 0, 0, 0.8);
+      }
+    }
+    .nav-new a.active-new {
+      color: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.04);
+      padding: 4px 8px;
+      margin: -4px -8px;
+      border-radius: 6px;
+    }
+
+    .nav-new .home-icon {
+      display: flex;
+      align-items: center;
+      color: rgba(0, 0, 0, 0.35);
+      transition: color 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new .home-icon:hover {
+        color: rgba(0, 0, 0, 0.7);
+      }
+    }
+
+    .nav-new .nav-links-n {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .nav-new .nav-right-n {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .nav-new .subscribe-btn-n {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.6875rem;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.4);
+      text-decoration: none;
+      background: rgba(0, 0, 0, 0.025);
+      padding: 5px 10px 5px 10px;
+      border-radius: 6px;
+      box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+      transition: color 0.15s, background-color 0.15s, box-shadow 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new .subscribe-btn-n:hover {
+        color: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+    .nav-new .subscribe-btn-n .arrow-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--adriatic-accent);
+      opacity: 0.5;
+      transition: opacity 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new .subscribe-btn-n:hover .arrow-dot {
+        opacity: 1;
+      }
+    }
+
+    /* =========================================
+       C. VARIANT — Accent subscribe chip
+       ========================================= */
+    .nav-new-v2 {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 0.5rem 0.625rem 0.5rem 0.75rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      border: none;
+      border-radius: 10px;
+      box-shadow:
+        0 0 0 0.5px rgba(0, 0, 0, 0.06),
+        0 2px 8px -2px rgba(0, 0, 0, 0.08),
+        0 6px 20px -4px rgba(0, 0, 0, 0.05);
+    }
+    .nav-new-v2 a {
+      color: rgba(0, 0, 0, 0.45);
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.6875rem;
+      font-weight: 400;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new-v2 a:hover {
+        color: rgba(0, 0, 0, 0.8);
+      }
+    }
+    .nav-new-v2 .home-icon {
+      display: flex;
+      align-items: center;
+      color: rgba(0, 0, 0, 0.35);
+      transition: color 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new-v2 .home-icon:hover {
+        color: rgba(0, 0, 0, 0.7);
+      }
+    }
+    .nav-new-v2 .nav-links-n {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+    .nav-new-v2 .nav-right-n {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+    .nav-new-v2 .subscribe-btn-accent {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.6875rem;
+      font-weight: 400;
+      color: var(--adriatic-accent);
+      text-decoration: none;
+      background: rgba(189, 45, 45, 0.04);
+      padding: 5px 10px;
+      border-radius: 6px;
+      box-shadow: 0 0 0 0.5px rgba(189, 45, 45, 0.12);
+      transition: color 0.15s, background-color 0.15s, box-shadow 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new-v2 .subscribe-btn-accent:hover {
+        background: rgba(189, 45, 45, 0.08);
+        box-shadow: 0 0 0 0.5px rgba(189, 45, 45, 0.2);
+      }
+    }
+    .nav-new-v2 .subscribe-btn-accent .arrow-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--adriatic-accent);
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new-v2 .subscribe-btn-accent:hover .arrow-dot {
+        opacity: 1;
+      }
+    }
+
+    /* =========================================
+       D. VARIANT — Mixed (serif nav + mono chip)
+       ========================================= */
+    .nav-new-v3 {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.5rem 0.625rem 0.5rem 0.75rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      border: none;
+      border-radius: 10px;
+      box-shadow:
+        0 0 0 0.5px rgba(0, 0, 0, 0.06),
+        0 2px 8px -2px rgba(0, 0, 0, 0.08),
+        0 6px 20px -4px rgba(0, 0, 0, 0.05);
+    }
+    .nav-new-v3 a {
+      color: rgba(0, 0, 0, 0.5);
+      font-family: 'Adriatic22', Georgia, serif;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new-v3 a:hover {
+        color: rgba(0, 0, 0, 0.85);
+      }
+    }
+    .nav-new-v3 .home-icon {
+      display: flex;
+      align-items: center;
+      color: rgba(0, 0, 0, 0.35);
+      transition: color 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new-v3 .home-icon:hover {
+        color: rgba(0, 0, 0, 0.7);
+      }
+    }
+    .nav-new-v3 .nav-links-n {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-new-v3 .nav-right-n {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+    .nav-new-v3 .subscribe-btn-accent {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.6875rem;
+      font-weight: 400;
+      color: var(--adriatic-accent);
+      text-decoration: none;
+      background: rgba(189, 45, 45, 0.04);
+      padding: 5px 10px;
+      border-radius: 6px;
+      box-shadow: 0 0 0 0.5px rgba(189, 45, 45, 0.12);
+      transition: color 0.15s, background-color 0.15s, box-shadow 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new-v3 .subscribe-btn-accent:hover {
+        background: rgba(189, 45, 45, 0.08);
+        box-shadow: 0 0 0 0.5px rgba(189, 45, 45, 0.2);
+      }
+    }
+    .nav-new-v3 .subscribe-btn-accent .arrow-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--adriatic-accent);
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+    @media (hover: hover) {
+      .nav-new-v3 .subscribe-btn-accent:hover .arrow-dot {
+        opacity: 1;
+      }
+    }
+
+    /* =========================================
+       Notes section
+       ========================================= */
+    .notes {
+      max-width: 600px;
+      margin: 0 auto 6rem;
+      padding: 0 1.5rem;
+    }
+    .notes h2 {
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.6875rem;
+      color: rgba(0,0,0,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+    .notes li {
+      font-size: 0.8125rem;
+      color: rgba(0,0,0,0.6);
+      line-height: 1.7;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .notes li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: rgba(0,0,0,0.25);
+    }
+    .notes li + li {
+      margin-top: 0.5rem;
+    }
+    .notes li strong {
+      color: rgba(0,0,0,0.8);
+      font-weight: 500;
+    }
+    .notes li code {
+      font-family: 'SF Mono', 'Menlo', monospace;
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.04);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-intro">
+    <h1>Navbar Redesign</h1>
+    <p>Applying agentation principles to the navigation bar. Current glass morphism vs. three proposed variants.</p>
+  </div>
+
+  <div class="comparison">
+
+    <!-- A. CURRENT -->
+    <div class="comparison-label">A. Current — Glass morphism + gradient CTA</div>
+    <div class="comparison-frame">
+      <nav class="nav-current">
+        <a href="#" class="home-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd" />
+          </svg>
+        </a>
+        <div class="nav-links-c">
+          <a href="#">About</a>
+          <a href="#">Magazine</a>
+          <a href="#">Archive</a>
+        </div>
+        <div class="nav-right-c">
+          <a href="#" class="subscribe-btn-c">Subscribe</a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- B. FULL AGENTATION -->
+    <div class="comparison-label">B. Agentation — Monospace everything, neutral subscribe chip</div>
+    <div class="comparison-frame">
+      <nav class="nav-new">
+        <a href="#" class="home-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd" />
+          </svg>
+        </a>
+        <div class="nav-links-n">
+          <a href="#">About</a>
+          <a href="#">Magazine</a>
+          <a href="#" class="active-new">Archive</a>
+        </div>
+        <div class="nav-right-n">
+          <a href="#" class="subscribe-btn-n">
+            <span class="arrow-dot"></span>
+            Subscribe
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- C. ACCENT SUBSCRIBE -->
+    <div class="comparison-label">C. Agentation — Monospace nav, accent-red subscribe chip</div>
+    <div class="comparison-frame">
+      <nav class="nav-new-v2">
+        <a href="#" class="home-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd" />
+          </svg>
+        </a>
+        <div class="nav-links-n">
+          <a href="#">About</a>
+          <a href="#">Magazine</a>
+          <a href="#">Archive</a>
+        </div>
+        <div class="nav-right-n">
+          <a href="#" class="subscribe-btn-accent">
+            <span class="arrow-dot"></span>
+            Subscribe
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- D. MIXED -->
+    <div class="comparison-label">D. Mixed — Serif nav links, monospace accent subscribe chip</div>
+    <div class="comparison-frame">
+      <nav class="nav-new-v3">
+        <a href="#" class="home-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd" />
+          </svg>
+        </a>
+        <div class="nav-links-n">
+          <a href="#">About</a>
+          <a href="#">Magazine</a>
+          <a href="#">Archive</a>
+        </div>
+        <div class="nav-right-n">
+          <a href="#" class="subscribe-btn-accent">
+            <span class="arrow-dot"></span>
+            Subscribe
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h2>Design notes</h2>
+    <ul>
+      <li><strong>Container:</strong> Drops the gradient background + white border + inset glow in favor of a flat <code>rgba(255,255,255,0.85)</code> with a single <code>0.5px</code> ring — same language as the like button and view-more chips</li>
+      <li><strong>Shadow:</strong> Replaces the 4-layer shadow (including inset highlights) with a cleaner 3-layer stack — ring + medium spread + soft ambient. No inset tricks.</li>
+      <li><strong>Border-radius:</strong> 16px → 10px. Tighter, matching the 6px chip radius proportionally.</li>
+      <li><strong>Nav links:</strong> B/C use monospace at 0.6875rem with opacity-based color (0.45 default → 0.8 hover). D keeps serif (Adriatic22) for editorial warmth, monospace only for the CTA.</li>
+      <li><strong>Active state:</strong> Replaces <code>font-weight: 600</code> with a subtle background chip (<code>rgba(0,0,0,0.04)</code>). Weight stays at 400 — consistent with agentation's "state through tint, not weight" rule.</li>
+      <li><strong>Subscribe button:</strong> B is fully neutral (gray chip). C/D use accent-red tint — same treatment as the liked state on the like button (<code>rgba(189,45,45,0.04)</code> bg + accent ring). Gives it just enough CTA energy without the gradient.</li>
+      <li><strong>Arrow dot:</strong> Replaces the animated double-chevron pill with a simple 4px accent dot. Quieter, but signals "there's something here." Dot brightens on hover.</li>
+      <li><strong>Home icon:</strong> Drops from 20px to 18px, color from solid text to <code>rgba(0,0,0,0.35)</code>. Recedes into the background until hovered.</li>
+    </ul>
+  </div>
+
+</body>
+</html>
