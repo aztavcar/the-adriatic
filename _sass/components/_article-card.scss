@@ -130,7 +130,8 @@
   text-decoration: none;
   color: rgba(0, 0, 0, 0.4);
   background: rgba(0, 0, 0, 0.025);
-  padding: 6px 14px;
+  padding: 12px 20px;
+  min-height: 44px;
   border-radius: 6px;
   box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.05);
   cursor: pointer;
@@ -142,4 +143,5 @@
       background: rgba(0, 0, 0, 0.045);
     }
   }
+
 }
