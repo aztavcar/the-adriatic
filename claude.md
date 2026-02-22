@@ -71,13 +71,9 @@ privacy.html     # Privacy policy
 terms.html       # Terms of use
 404.html         # Error page
 
-# Test/dev pages (built but not linked from site)
-test-article-sections.html
-test-clocks.html
-test-menu-animations.html
-test-subscribe-buttons.html
-navbar-redesign.html
-performance-report.html
+# Internal pages (built but not linked, noindex/nofollow, sitemap: false)
+navbar-redesign.html       # Navbar design sandbox
+performance-report.html    # Performance optimization changelog (Feb 2026)
 ```
 
 ## Key Files
@@ -454,7 +450,7 @@ Use `loading="eager"` for above-the-fold hero images, `loading="lazy"` for every
 CSP meta tag in `default.html` restricts script/style/font/image/connect sources to known domains. Uses `'unsafe-inline'` for scripts (10+ inline blocks; nonce-based CSP would require major refactoring). When migrating to App Platform, move CSP to HTTP header and add `frame-ancestors 'self'`.
 
 ### Build Exclusions
-`_config.yml` excludes from `_site/`: `CLAUDE.md`, `claude.md`, `README.md`, `docs/`, `references/`, `api/`. Source maps disabled (`sourcemap: never`). Note: `test-*.html` pages are NOT excluded — they build into `_site/` but aren't linked from the live site.
+`_config.yml` excludes from `_site/`: `CLAUDE.md`, `claude.md`, `README.md`, `docs/`, `references/`, `api/`. Source maps disabled (`sourcemap: never`). Internal pages (navbar-redesign, performance-report) are built but use `noindex`/`nofollow` + `sitemap: false` to stay hidden.
 
 ### XSS Prevention
 - `archive.html` search suggestions escape post titles/URLs via `escapeHTML()` before DOM injection
