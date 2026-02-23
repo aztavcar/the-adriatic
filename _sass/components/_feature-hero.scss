@@ -129,6 +129,24 @@ a.feature-hero-container {
     padding: 2rem 0;
   }
 
+  a.feature-hero-container {
+    padding: 12px;
+    margin: 0 -12px;
+    border-radius: 10px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.15s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: rgba(189, 45, 45, 0.04);
+      }
+    }
+
+    &:active {
+      background-color: rgba(189, 45, 45, 0.04);
+    }
+  }
+
   .feature-text {
     padding-right: 0;
   }

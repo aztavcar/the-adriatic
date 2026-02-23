@@ -154,10 +154,12 @@
   .horizontal-card {
     display: flex;
     gap: 8px;
-    padding: 10px 0 12px;
-    margin: 0;
+    padding: 10px 12px 12px;
+    margin: 0 -12px;
     border-radius: 10px;
     align-items: flex-start;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.15s ease;
 
     // Hover (desktop)
     @media (hover: hover) {
