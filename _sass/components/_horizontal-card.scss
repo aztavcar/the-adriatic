@@ -159,16 +159,10 @@
     border-radius: 10px;
     align-items: flex-start;
     -webkit-tap-highlight-color: transparent;
-    transition: background-color 0.15s ease;
 
-    // Hover (desktop)
-    @media (hover: hover) {
-      &:hover {
-        background-color: rgba(189, 45, 45, 0.04);
-      }
-    }
-
-    // Active/tap (touch)
+    // Hover — no (hover: hover) guard here; on mobile browsers
+    // tap triggers :hover briefly, which is the effect we want
+    &:hover,
     &:active {
       background-color: rgba(189, 45, 45, 0.04);
     }

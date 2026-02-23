@@ -198,6 +198,9 @@
   </footer>
 
   <script>
+  // Enable :active on iOS Safari (requires touchstart listener)
+  document.addEventListener('touchstart', function() {}, {passive: true});
+
   document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu
     var hamburgerBtn = document.querySelector('.hamburger-btn');

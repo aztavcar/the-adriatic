@@ -287,12 +287,17 @@ The nested `overflow: hidden` containers clip the arrow during the teleport so i
 
 ### Homepage Hover States
 
-Article cards use **accent-red title color shift** on hover (not opacity dimming), all wrapped in `@media (hover: hover)`:
+**Desktop (hover):** Article cards use **accent-red title color shift** on hover (not opacity dimming), all wrapped in `@media (hover: hover)`:
 - `.feature-hero-container:hover .feature-headline` → `color: var(--adriatic-accent)`
 - `.featured-hero-container:hover .featured-headline` → `color: var(--adriatic-accent)`
 - `.horizontal-card:hover .horizontal-card-title` → `color: var(--adriatic-accent)`
 
 All headlines use `font-weight: 400` (not 600) with `transition: color 0.15s`. All hover effects site-wide use `@media (hover: hover)` guards to prevent sticky hover on touch devices.
+
+**Mobile (touch):** Granola-style tap feedback — rose-tinted background fill on tap:
+- `.horizontal-card` and `a.feature-hero-container` at ≤768px get `border-radius: 10px`, `padding: 10-12px`, `margin: 0 -12px` (bleed), `-webkit-tap-highlight-color: transparent`
+- Background: `rgba(189, 45, 45, 0.04)` on `:hover` and `:active` (no `@media (hover: hover)` guard — mobile browsers trigger `:hover` on tap, which is the desired flash)
+- `default.html` has a passive `touchstart` listener (`document.addEventListener('touchstart', function(){}, {passive:true})`) to enable `:active` on iOS Safari
 
 ### About Page — Write for Us CTA
 
@@ -494,7 +499,7 @@ CSP meta tag in `default.html` restricts script/style/font/image/connect sources
 - [ ] `events.html`: Create events page?
 - [ ] Test Windows rendering on BrowserStack and verify header fix
 - [ ] Convert masthead title to SVG for consistent cross-platform rendering
-- [ ] **Homepage article hover/touch** — Granola-style interaction: rose-tinted background highlight on desktop hover (`@media (hover: hover)`), slightly brownish/warm linger highlight on touch (visible on touch-hold without pressing, not `:active`)
+- [x] **Homepage article hover/touch** — Granola-style tap feedback: rose-tinted background fill (`rgba(189,45,45,0.04)`) with `border-radius: 10px`, padding bleed, no hover guard on mobile, passive `touchstart` for iOS `:active`
 - [ ] Add rate limiting to likes API (Cloudflare dashboard or Worker-level)
 - [ ] Move CSP to HTTP header when migrating to DigitalOcean App Platform
 - [ ] Self-host Google Fonts for SRI + performance (already have some woff2 files)
